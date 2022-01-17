@@ -26,54 +26,90 @@
     justify-items: center;
 }
 .global{
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
     padding: 30px;
 }
 
 .local {
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     padding: 10px;
     border: 1px solid black;
 }
-.local_grid {
+.local_grid_cell {
     cursor: pointer;
     flex-grow: 1;
     border: 1px solid black;
     padding: 10px;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 }
 .local:first-child,
 .local:nth-child(2),
 .local:nth-child(3),
-.local_grid:first-child,
-.local_grid:nth-child(2),
-.local_grid:nth-child(3)  {
+.local_grid_cell:first-child,
+.local_grid_cell:nth-child(2),
+.local_grid_cell:nth-child(3)  {
     border-top: none;
 }
 .local:first-child,
 .local:nth-child(4),
 .local:nth-child(7),
-.local_grid:first-child,
-.local_grid:nth-child(4),
-.local_grid:nth-child(7) {
+.local_grid_cell:first-child,
+.local_grid_cell:nth-child(4),
+.local_grid_cell:nth-child(7) {
     border-left: none;
 }
 .local:nth-child(3),
 .local:nth-child(6),
 .local:nth-child(9),
-.local_grid:nth-child(3),
-.local_grid:nth-child(6),
-.local_grid:nth-child(9) {
+.local_grid_cell:nth-child(3),
+.local_grid_cell:nth-child(6),
+.local_grid_cell:nth-child(9) {
     border-right: none;
 }
 .local:nth-child(7),
 .local:nth-child(8),
 .local:nth-child(9),
-.local_grid:nth-child(7),
-.local_grid:nth-child(8),
-.local_grid:nth-child(9) {
+.local_grid_cell:nth-child(7),
+.local_grid_cell:nth-child(8),
+.local_grid_cell:nth-child(9) {
     border-bottom: none;
 }
+/* [data-winner="X"] {
+    background: 
+    linear-gradient(to top left, transparent 45%, rgb(255,0,0) 46%, rgb(255,0,0) 54%, transparent 55%),
+    linear-gradient(to top right, transparent 45%, rgb(255,0,0) 46%, rgb(255,0,0) 54%, transparent 55%);
+}
+[data-winner="O"] {
+    background-image:
+    '<svg width="150" height="150"><circle cx="50" cy="50" r="40"stroke="green" stroke-width="4" fill="white" /></svg>'
+} */
+.results {
+    text-align: center;
+    font-size: large;
+}
+.X,
+.O {
+    cursor: not-allowed;
+}
+.X {
+    font-size: large;
+    text-align: center;
+    color: red;
+}
+.O {
+    font-size: large;
+    text-align: center;
+    color: green;
+}
+.X::before,
+.O::before,
+.X::after {
+    background-color: black;
+}
+
+
+
+

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/stlyle.css">
     <script src="./scripts/app.js"></script>
-    <title>Document</title>
+    <title>Tic-Tac-Toe ultimate</title>
 </head>
 <body>
     <div class="container">
@@ -16,104 +16,104 @@
             <button type="button" class="reset">Reset</button>
         </div>
         <div class="global">
-            <div class="local" data-local-board="0">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="0" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="1">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="1" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="2">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="2" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="3">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="3" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="4">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="4" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="5">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="5" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="6">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="6" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="7">
-                <div class="local_grid" data-index="0"></div>
-                <div class="local_grid" data-index="1"></div>
-                <div class="local_grid" data-index="2"></div>
-                <div class="local_grid" data-index="3"></div>
-                <div class="local_grid" data-index="4"></div>
-                <div class="local_grid" data-index="5"></div>
-                <div class="local_grid" data-index="6"></div>
-                <div class="local_grid" data-index="7"></div>
-                <div class="local_grid" data-index="8"></div>
+            <div class="local" data-local-board="7" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-index="0"></div>
+                <div class="local_grid_cell" data-index="1"></div>
+                <div class="local_grid_cell" data-index="2"></div>
+                <div class="local_grid_cell" data-index="3"></div>
+                <div class="local_grid_cell" data-index="4"></div>
+                <div class="local_grid_cell" data-index="5"></div>
+                <div class="local_grid_cell" data-index="6"></div>
+                <div class="local_grid_cell" data-index="7"></div>
+                <div class="local_grid_cell" data-index="8"></div>
             </div>
-            <div class="local" data-local-board="8">
-                <div class="local_grid" data-local-cell data-index="0"></div>
-                <div class="local_grid" data-local-cell data-index="1"></div>
-                <div class="local_grid" data-local-cell data-index="2"></div>
-                <div class="local_grid" data-local-cell data-index="3"></div>
-                <div class="local_grid" data-local-cell data-index="4"></div>
-                <div class="local_grid" data-local-cell data-index="5"></div>
-                <div class="local_grid" data-local-cell data-index="6"></div>
-                <div class="local_grid" data-local-cell data-index="7"></div>
-                <div class="local_grid" data-local-cell data-index="8"></div>
+            <div class="local" data-local-board="8" data-winner="" data-available="true">
+                <div class="local_grid_cell" data-local-cell data-index="0"></div>
+                <div class="local_grid_cell" data-local-cell data-index="1"></div>
+                <div class="local_grid_cell" data-local-cell data-index="2"></div>
+                <div class="local_grid_cell" data-local-cell data-index="3"></div>
+                <div class="local_grid_cell" data-local-cell data-index="4"></div>
+                <div class="local_grid_cell" data-local-cell data-index="5"></div>
+                <div class="local_grid_cell" data-local-cell data-index="6"></div>
+                <div class="local_grid_cell" data-local-cell data-index="7"></div>
+                <div class="local_grid_cell" data-local-cell data-index="8"></div>
             </div>
         </div>
     </div>
