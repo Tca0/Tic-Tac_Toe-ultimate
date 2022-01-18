@@ -5,15 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/stlyle.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="./scripts/app.js"></script>
     <title>Tic-Tac-Toe ultimate</title>
 </head>
 <body>
     <div class="container">
         <div class="header_text">
-            <div class="player_turn">Player Turn</div>
-            <div class="game_situation">Game In Progress</div>
-            <button type="button" class="reset">Reset</button>
+            <div id="headerText">
+                <div class="game_situation"></div>
+                <div class="player_turn"></div>
+            </div>
+            <button type="button" class="reset">
+                <i class="material-icons">refresh</i>
+            </button>
         </div>
         <div class="global">
             <div class="local" data-local-board="0" data-winner="" data-available="true">

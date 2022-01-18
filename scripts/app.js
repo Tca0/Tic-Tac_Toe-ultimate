@@ -33,7 +33,7 @@ function init() {
         })
         emptyCellsNumber = 81
         gameSituation.textContent = "Game started"
-        playerTurn.textContent = "Player X turn"
+        playerTurn.textContent = "Player X Turn"
     }
 
     // Restart button and its function
@@ -84,6 +84,7 @@ function init() {
                 message = `winner is ${clickedCell.parentNode.dataset.winner} on grid number ${clickedOnGridNumber}`
             } else if(isLocalDraw(clickedOnGridNumber)) {
                 clickedCell.parentNode.dataset.available = "false"
+                clickedCell.parentNode.dataset.winner = "none"
                 message = `It's a draw in board number ${clickedOnGridNumber}`
                 nextMoveAvailability = "false"
             }

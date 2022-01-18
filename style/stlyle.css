@@ -1,6 +1,9 @@
 * {
     box-sizing: border-box;
 }
+body {
+    background-color: rgb(188, 199, 211);
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -14,6 +17,23 @@
     margin-top: 30px;
     margin-bottom: 20px;
     width: 500px;
+    align-items: center;
+    height: 100px;
+}
+#headerText {
+    font-size: 30px;
+    font-family: fantasy;
+}
+#headerText > * {
+    margin: 10px;
+}
+.reset {
+    /* width: fit-content;
+    height: fit-content; */
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
 }
 .global, .local {
     cursor: pointer;
@@ -35,12 +55,12 @@
     width: 180px;
     height: 180px;
     padding: 10px;
-    border: 1px solid black;
+    border: 4px double black;
 }
 .local_grid_cell {
     cursor: pointer;
     flex-grow: 1;
-    border: 1px solid black;
+    border: 3px solid black;
     padding: 10px;
     width: 40px;
     height: 40px;
@@ -77,15 +97,36 @@
 .local_grid_cell:nth-child(9) {
     border-bottom: none;
 }
-/* [data-winner="X"] {
-    background: 
-    linear-gradient(to top left, transparent 45%, rgb(255,0,0) 46%, rgb(255,0,0) 54%, transparent 55%),
-    linear-gradient(to top right, transparent 45%, rgb(255,0,0) 46%, rgb(255,0,0) 54%, transparent 55%);
+[data-winner="X"],
+[data-winner="O"],
+[data-winner="none"] {
+    cursor: not-allowed;
 }
-[data-winner="O"] {
-    background-image:
-    '<svg width="150" height="150"><circle cx="50" cy="50" r="40"stroke="green" stroke-width="4" fill="white" /></svg>'
-} */
+[data-winner="O"]::after {
+    content: 'O';
+    color: green;
+    transform: matrix(14, 1, 2, 10, 0, 0);
+    font-family: 'Brush Script MT', cursive;
+}
+
+[data-winner="X"]::after  {
+    content: 'X';
+    color: red;
+    transform: matrix(14, 1, 2, 10, 0, 0);
+    font-family: 'Brush Script MT', cursive;
+}
+[data-winner="none"]::after {
+    content: 'DRAW';
+    color: rgb(61, 59, 59);
+    transform: matrix(3, 1, -3, 3, 0, 0);
+    font-family: 'Brush Script MT', cursive;
+    text-decoration-style: double;
+    text-decoration-line: underline;
+}
+[data-available="false"]>* {
+    display: none;
+}
+
 .results {
     text-align: center;
     font-size: large;
@@ -93,22 +134,17 @@
 .X,
 .O {
     cursor: not-allowed;
+    text-align: center;
+    font-size: large;
 }
 .X {
-    font-size: large;
-    text-align: center;
     color: red;
+
 }
 .O {
-    font-size: large;
-    text-align: center;
     color: green;
 }
-.X::before,
-.O::before,
-.X::after {
-    background-color: black;
-}
+
 
 
 
