@@ -9,7 +9,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-.header_text {
+.header {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
@@ -19,6 +19,10 @@ body {
     width: 500px;
     align-items: center;
     height: 100px;
+}
+#timer {
+    font-size: 30px;
+    font-weight: bold;
 }
 #headerText {
     font-size: 30px;
@@ -109,7 +113,8 @@ body {
     font-family: 'Brush Script MT', cursive;
 }
 
-[data-winner="X"]::after  {
+[data-winner="X"]::after,
+[data-winner="X"]::before  {
     content: 'X';
     color: red;
     transform: matrix(14, 1, 2, 10, 0, 0);
@@ -127,10 +132,6 @@ body {
     display: none;
 }
 
-.results {
-    text-align: center;
-    font-size: large;
-}
 .X,
 .O {
     cursor: not-allowed;
@@ -144,7 +145,62 @@ body {
 .O {
     color: green;
 }
+/* Results popup div */
+.hiddenResults {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    background-color: black;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    cursor: pointer;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.popup {
+    position: absolute;
+    display: block;
+    z-index: 1;
+    background-color: rgb(16, 17, 13);
+    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    cursor: pointer;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+}
+.results {
+    margin-top: 40%;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    font-family: fantasy;
+}
+#dialogInfo {
+    padding: 0px;
+    width: 400px;
+    height: 120px;
+    text-align: center;
+}
+h4 {
+    background-color: red;
+    width: 100%;
+    margin: 0px;
+    font-weight: 900;
+}
+.infoMessages {
+    font-family: fantasy;
 
+}
 
 
 

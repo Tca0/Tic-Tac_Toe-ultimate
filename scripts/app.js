@@ -2,10 +2,15 @@ function init() {
     let playerTurn = document.querySelector(".player_turn")
     let gameSituation = document.querySelector(".game_situation")
     let resetBtn = document.querySelector(".reset")
-    const showResultsDiv = document.querySelector(".results")
+    const showResultsDiv = document.querySelector(".hiddenResults")
+    const results = document.querySelector(".results")
     const localGrids = document.querySelectorAll(".local")
     const localCells = document.querySelectorAll(".local_grid_cell")
     const globalGride = document.querySelector(".global")
+    const dialogBox = document.querySelector("#dialogInfo")
+    const errorMessages = document.querySelector(".infoMessages")
+    const gameTimer = document.querySelector("#timer")
+    // const startGameTime = document.querySelector(".startGame")
     const winingConditions = [
         [0, 1, 2],
         [3, 4, 5],
@@ -18,22 +23,27 @@ function init() {
     ]
     let X_Turn // to decide which player turn is and place mark due it.
     let emptyCellsNumber = 0 // It's 81 when game started for the first move
-    let localWinner = undefined // to store the winner for a local grid win
-    let message = ""
+    let resultsMessage = ""
+    let infoMessage = ""
     let nextMoveOnGrid = [] // to store the supposed next move
     let numberOfMoves = 0
+    let X_Moves = 0
+    let O_Moves = 0
+    let timerInterval
     // start the game by calling the startGame function
     startGame()
     // start game function
     function startGame() {
         X_Turn = true
+        X_Moves = 0
+        O_Moves = 0
         localCells.forEach(cell => {
             cell.textContent = ""
             cell.addEventListener('click', handelClickOnCell)
         })
         emptyCellsNumber = 81
-        gameSituation.textContent = "Game started"
-        playerTurn.textContent = "Player X Turn"
+        gameSituation.textContent = "Start Playing"
+        playerTurn.textContent = "Player X's Turn"
     }
 
     // Restart button and its function
@@ -46,26 +56,56 @@ function init() {
         localCells.forEach(cell => {
             cell.textContent = ""
             cell.removeEventListener('click', handelClickOnCell)
+            cell.classList.remove('X')
+            cell.classList.remove('O')
         })
-        
-        message = "Game restarted"
+        numberOfMoves = 0
+        infoMessage = ""
+        resultsMessage = "Game restarted"
         nextMoveOnGrid = [] 
-        localWinner = undefined
+        gameTimer.innerHTML = "00:00"
         displayResultsAndMessages()
         localGrids.forEach(grid => {
             grid.dataset.winner = ""
             grid.dataset.available = "true"
         })
+        globalGride.addEventListener('click', startTime, {once:true})
         startGame()
+        clearInterval(timerInterval)
     }
 
-    function handelClickOnCell(event) {
-        numberOfMoves++ // with every click increase the numberOfMoves by one
+    //time function 
+    const startTime = () => {
+        let second = 0
+        let minute = 0
+        clearInterval(timerInterval)
+        timerInterval = setInterval(function () {
+            second++
+            gameTimer.innerHTML = (minute<10? "0"+minute : minute) +":"+ (second<10? "0"+second : second)
+            if(second == 60) {
+                minute++
+                second = 0
+            }
+            console.log(minute, second)
+        },1000)
+    }
+    // with first click on the grid the time will run
+    globalGride.addEventListener('click', startTime, {once:true})
+
+    function handelClickOnCell(event) 
+    {
         const clickedCell = event.target
-        const currentLocalGridAvailability = clickedCell.parentNode.dataset.available
+        numberOfMoves++ // with every click increase the numberOfMoves by one
+        let currentTurn
+        if(X_Turn) {
+            currentTurn = 'X'
+            X_Moves++
+        } else {
+            currentTurn = 'O'
+            O_Moves++
+        }
         const clickedOnGridNumber = clickedCell.parentNode.dataset.localBoard
         const nextMove = event.target.dataset.index
-        const currentTurn = X_Turn? 'X':'O'
         let nextMoveAvailability = document.querySelector(`.local[data-local-board="${nextMove}"]`).dataset.available
         
         //store the supposed next move in an array to check if it's a legal click or not  
@@ -73,42 +113,42 @@ function init() {
         //if it's then call a moveOnAvailableGrid function
         // else show a massage it's not available move here go to another available grid due to the rules
         //if it's an empty global grid move on else check if it's match the rules
-        
-
-        if(isItAnewGame() ||isItRightLocalBoard(currentLocalGridAvailability, clickedOnGridNumber)) {
-            placeMark(clickedCell)
-            if(isLocalBoardWins(clickedOnGridNumber, currentTurn)) {
-                clickedCell.parentNode.dataset.available = "false"
-                nextMoveAvailability = "false"
-                clickedCell.parentNode.dataset.winner = clickedCell.textContent
-                message = `winner is ${clickedCell.parentNode.dataset.winner} on grid number ${clickedOnGridNumber}`
-            } else if(isLocalDraw(clickedOnGridNumber)) {
-                clickedCell.parentNode.dataset.available = "false"
-                clickedCell.parentNode.dataset.winner = "none"
-                message = `It's a draw in board number ${clickedOnGridNumber}`
-                nextMoveAvailability = "false"
-            }
-            if(isGlobalWins(currentTurn)) {
-                    message = `Game ended.<br>The winner is ${currentTurn}.<br>Total off moves ${numberOfMoves}`
+        if(isValidCell(clickedCell)) {
+            if(isItAnewGame() || isItRightLocalBoard(clickedOnGridNumber)) {
+                placeMark(clickedCell)
+                if(isLocalBoardWins(clickedOnGridNumber, currentTurn)) {
+                    clickedCell.parentNode.dataset.available = "false"
+                    nextMoveAvailability = "false"
+                    clickedCell.parentNode.dataset.winner = clickedCell.textContent
+                    resultsMessage = `winner is ${clickedCell.parentNode.dataset.winner} on grid number ${clickedOnGridNumber}`
+                } else if(isLocalDraw(clickedOnGridNumber)) {
+                    clickedCell.parentNode.dataset.available = "false"
+                    clickedCell.parentNode.dataset.winner = "none"
+                    resultsMessage = `It's a draw in board number ${clickedOnGridNumber}`
+                    nextMoveAvailability = "false"
+                }
+                if(isGlobalWins(currentTurn)) {
+                    resultsMessage = `Game ended.<br>The winner is ${currentTurn}.<br>Total moves ${numberOfMoves}.<br>X's total moves ${X_Moves}.<br>O's total moves ${O_Moves}.<br>Total time ${minute}:${second}`
                     endGame()
                 } else if(isGlobalDraw()) {
-                    message = `No winner.<br>It's totally tied`
+                    resultsMessage = `No winner.<br>It's totally tied.<br>Total off moves ${numberOfMoves}.<br>X's total moves ${X_Moves}.<br>O's total moves ${O_Moves}.<br>Total time ${minute}:${second}`
                     endGame()
-                } else {
+                }
+                else {
                     swapTurn()
                     if(nextMoveAvailability === "false") {
                         nextMoveOnGrid.push("anyAvailableBoard")
+                        infoMessage = "Next player can play on any unfinished board"
                     } else {
                         nextMoveOnGrid.push(nextMove)
                     }
                 }
-                
             } else {
-            if(nextMoveOnGrid[nextMoveOnGrid.length-1] === "anyAvailableBoard") {
-                message = `Clicked on finished grid.<br>Your move should be on another available grid`
-            }else {
-                message = `Clicked on wrong local board.<br>your move should be on grid number ${parseInt(nextMoveOnGrid[nextMoveOnGrid.length-1])+1}`
+            infoMessage = `Clicked on wrong local board.<br>your move should be on grid number ${parseInt(nextMoveOnGrid[nextMoveOnGrid.length-1])+1}`
             }
+        }
+        else {
+            infoMessage = `current cell was occupied by another player`
         }
         displayResultsAndMessages()
     }
@@ -116,11 +156,11 @@ function init() {
     const isItAnewGame = () => emptyCellsNumber === 81
     
     // function to check if it's an empty cell 
-    const isValidCell = (cell) => (cell.textContent === "")
+    const isValidCell = (cell) => !(cell.classList.contains('X') || cell.classList.contains('O'))
 
     // function to check if it's a right local board was clicked
-    const isItRightLocalBoard = (boardAvailability, boardNumber) => 
-    (boardAvailability === "true" && (boardNumber === nextMoveOnGrid[nextMoveOnGrid.length-1] || nextMoveOnGrid[nextMoveOnGrid.length-1] === "anyAvailableBoard"))
+    const isItRightLocalBoard = (boardNumber) => 
+    (boardNumber === nextMoveOnGrid[nextMoveOnGrid.length-1] || nextMoveOnGrid[nextMoveOnGrid.length-1] === "anyAvailableBoard")
 
     // Local wins function 
     const isLocalBoardWins =(index, currentTurn) => {
@@ -161,15 +201,16 @@ function init() {
     // global draw function
     const isGlobalDraw = () => {
         const grid = Array.from(globalGride.children)
-        return grid.every(localGrid => {
-            return (localGrid.dataset.available === "false")
+        return winingConditions.every(condition => {
+            return condition.every(index => {
+                return (grid[index].dataset.available === "false")
+            })
         })
     }
 
     // Placing mark in the cell
     const placeMark = (cell) => {
         gameSituation.textContent = "Game In Progress"
-        if(isValidCell(cell)) {
             if(X_Turn) {
                 cell.classList.add('X')
                 cell.textContent = 'X'
@@ -178,24 +219,50 @@ function init() {
                 cell.textContent ='O'
             }
             emptyCellsNumber--
-        } else {
-            message = `Clicked on occupied cell, please click on another empty cell`
-        }
-        
     } 
 
     // switch turn between players
     const swapTurn = () => {
         X_Turn = !X_Turn
-        playerTurn.textContent = (X_Turn)? "Player X Turn" : "Player O Turn"
+        playerTurn.textContent = (X_Turn)? "Player X's Turn" : "Player O's Turn"
     }
 
     //display messages function
-    const displayResultsAndMessages = () => showResultsDiv.innerHTML = message
+    const displayResultsAndMessages = () => {
+        if(resultsMessage) {
+            results.innerHTML = resultsMessage
+            openMessagesWindow()
+        } else if(infoMessage) {
+            errorMessages.innerHTML = infoMessage
+            showDialog()
+        }
+        resultsMessage = ""
+        infoMessage = ""
+    }
+
+    const openMessagesWindow = () => showResultsDiv.classList.add("popup")
+    // function to close the message window when user clicks on any empty space on the screen
+    window.onclick = function(e) {
+        if (e.target == showResultsDiv) {
+            showResultsDiv.classList.remove("popup")
+        }
+    }
+
+    const showDialog = () => dialogBox.showModal()
+    const closeDialog = () => {
+        dialogBox.close()
+    } 
+    dialogBox.addEventListener('click', closeDialog)
+
 
     //end game function
-    const endGame = () => localCells.forEach(cell => {
+    const endGame = () => {
+        localCells.forEach(cell => {
         cell.removeEventListener('click', handelClickOnCell)
-        })
+    })
+    globalGride.removeEventListener('click', startTime)
+    clearInterval(timerInterval)
+    }
+
 }
 window.addEventListener('DOMContentLoaded', init)
