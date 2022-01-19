@@ -16,7 +16,7 @@ body {
     justify-content: space-around;
     margin-top: 30px;
     margin-bottom: 20px;
-    width: 500px;
+    width: 600px;
     align-items: center;
     height: 100px;
 }
@@ -150,7 +150,6 @@ body {
     position: absolute;
     display: none;
     z-index: 1;
-    background-color: black;
     opacity: 1;
     width: 100%;
     height: 100%;
@@ -201,7 +200,117 @@ h4 {
     font-family: fantasy;
 
 }
+/* styling dices */
 
+.cube {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    perspective: 500px;
+    perspective-origin: 50% 100%;
 
-
-
+}
+.dice {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: translateZ(-25px);
+    transition: transform 1s;
+}
+#dice-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    line-height: 42px;
+    font-size: 15px;
+    font-weight: bold;
+    /* background-color: white; */
+    text-align: center;
+}
+.front-1 {
+    transform: translateZ(25px);
+    background-color: blue;
+}
+.back-2 {
+    transform: rotateX(-180deg) translateZ(25px);
+    background-color: pink;
+}
+.top-3 {
+    transform: rotateX(90deg) translateZ(25px);
+    background-color: plum;
+}
+.bottom-4 {
+    transform: rotateX(-90deg) translateZ(25px);
+    background-color: powderblue;
+}
+.right-5 {
+    transform: rotateY(-90deg) translateZ(25px);
+    background-color: purple;
+}
+.left-6 {
+    transform: rotateY(90deg) translateZ(25px);
+    background-color: rebeccapurple;
+}
+span {
+    font-size: 90px;
+}
+.X_inputs, .O_inputs {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+.user_Information {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+.player_Inputs {
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-around;
+}
+label {
+    color: white;
+    margin-bottom: 10px;
+}
+.hidden_Inputs {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    cursor: pointer;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.popup_start {
+    position: absolute;
+    display: block;
+    z-index: 1;
+    background-color: rgb(16, 17, 13);
+    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    cursor: pointer;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+}
+.popup_start >* {
+    margin-top: 30%;
+}

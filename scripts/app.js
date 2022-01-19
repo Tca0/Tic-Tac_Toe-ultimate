@@ -30,6 +30,39 @@ function init() {
     let X_Moves = 0
     let O_Moves = 0
     let timerInterval
+// after game loaded and before game start a popup window will show up and players 
+// will enter their names and each one will click on a dice
+// the numbers showed on dices will be compared and the player with bigger number will start first
+    let firstPlayerName = document.querySelector("#firstPlayerName").textContent
+    let secondPlayerName = document.querySelector("#secondPlayerName").textContent
+    document.querySelector(".hidden_Inputs").classList.toggle("popup_start")
+    const firstDice = document.querySelector('.dice_X')
+    const secondDice = document.querySelector('.dice_O')
+    const min = 1
+    const max = 24   
+    const rollDice1 = () => {
+        let xRand = getRandom(max, min)
+        let yRand = getRandom(max, min)
+        firstDice.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
+        firstDice.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
+        console.log(firstDice)
+    }
+    const rollDice2 = () => {
+        let xRand = getRandom(max, min)
+        let yRand = getRandom(max, min)
+        secondDice.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
+        secondDice.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
+        
+        console.log(secondDice)
+    }
+    const getRandom = (max, min) => {
+        return (Math.floor(Math.random() * (max-min)) + min) * 90
+    }
+        firstDice.addEventListener('click', rollDice1)
+        secondDice.addEventListener('click', rollDice2)
+    
+    
+
     // start the game by calling the startGame function
     startGame()
     // start game function
