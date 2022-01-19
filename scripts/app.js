@@ -33,41 +33,96 @@ function init() {
 // after game loaded and before game start a popup window will show up and players 
 // will enter their names and each one will click on a dice
 // the numbers showed on dices will be compared and the player with bigger number will start first
-    let firstPlayerName = document.querySelector("#firstPlayerName").textContent
-    let secondPlayerName = document.querySelector("#secondPlayerName").textContent
     document.querySelector(".hidden_Inputs").classList.toggle("popup_start")
     const firstDice = document.querySelector('.dice_X')
     const secondDice = document.querySelector('.dice_O')
-    const min = 1
-    const max = 24   
+    let firstDiceFaces = Array.from(firstDice.children)
+    let secondDiceFaces = Array.from(secondDice.children)
+    let firstPlayerNum 
+    let secondPlayerNum
+    let firstPlayerName 
+    let secondPlayerName 
+    //generating a random dice face between 1-6
+    function showDiceFaceNumber(number,faceView) {
+        switch(number) {
+            case 1 :
+                faceView.innerHTML = `<span>&#9856;</span>`;
+                break;
+            case 2 :
+                faceView.innerHTML = `<span>&#9857;</span>`;
+                break;
+            case 3 :
+                faceView.innerHTML = `<span>&#9858;</span>`;
+                break;
+            case 4 :
+                faceView.innerHTML = `<span>&#9859;</span>`;
+                break;
+            case 5 :
+                faceView.innerHTML = `<span>&#9860;</span>`;
+                break;
+            case 6 :
+                faceView.innerHTML = `<span>&#9861;</span>`;
+                break;
+            default :
+        }
+    }
     const rollDice1 = () => {
-        let xRand = getRandom(max, min)
-        let yRand = getRandom(max, min)
+        firstPlayerNum = parseInt(Math.random()*6)+1
+        let xRand = getRandomRotate()
+        let yRand = getRandomRotate()
         firstDice.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
         firstDice.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
-        console.log(firstDice)
+        firstDiceFaces.forEach(face => {
+        showDiceFaceNumber(firstPlayerNum,face)
+    })
+    console.log(firstPlayerNum)
+    return firstPlayerNum
     }
     const rollDice2 = () => {
-        let xRand = getRandom(max, min)
-        let yRand = getRandom(max, min)
+        secondPlayerNum = parseInt(Math.random()*6)+1
+        let xRand = getRandomRotate()
+        let yRand = getRandomRotate()
         secondDice.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
         secondDice.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)'
-        
-        console.log(secondDice)
+        secondDiceFaces.forEach(face => {
+        showDiceFaceNumber(secondPlayerNum,face)
+    })
+    console.log(secondPlayerNum)
+    return secondPlayerNum
     }
-    const getRandom = (max, min) => {
-        return (Math.floor(Math.random() * (max-min)) + min) * 90
+    const getRandomRotate = () => {
+        // times of 90 deg is to set up the dice's face vertically
+        return (Math.floor(Math.random() * (6)) +1) * 90
     }
-        firstDice.addEventListener('click', rollDice1)
-        secondDice.addEventListener('click', rollDice2)
-    
-    
-
+    firstDice.addEventListener('click', rollDice1)
+    secondDice.addEventListener('click', rollDice2)
+    // function to close first start div and get users information
+    const startBtn = document.querySelector(".startGameBtn")
+    function getPlayersInfoAndStart() {
+        firstPlayerName = document.querySelector("#firstPlayerName").value
+        secondPlayerName = document.querySelector("#secondPlayerName").value
+        document.querySelector(".hidden_Inputs").classList.remove("popup_start")
+        startGame()
+    }
+    startBtn.addEventListener('click', getPlayersInfoAndStart)
+    // function to trim names from spaces and Capitalize first letter
+    function correctNames(string) {
+        return string.trim().replace(/[^a-zA-Z]/g, '').charAt(0).toUpperCase() + string.trim().replace(/[^a-zA-Z]/g, '').slice(1).toLowerCase()
+    } 
     // start the game by calling the startGame function
-    startGame()
     // start game function
     function startGame() {
-        X_Turn = true
+        firstPlayerName = correctNames(firstPlayerName)
+        secondPlayerName = correctNames(secondPlayerName)
+        //if players entered their names or not
+        // if they choose to decided to roll the dices with names or without
+        if((firstPlayerNum>secondPlayerNum)||((!firstPlayerNum)&&(!secondPlayerNum))){
+            X_Turn = true
+        } else {
+            X_Turn = false
+        }
+        displayTurn()
+        console.log()
         X_Moves = 0
         O_Moves = 0
         localCells.forEach(cell => {
@@ -76,16 +131,28 @@ function init() {
         })
         emptyCellsNumber = 81
         gameSituation.textContent = "Start Playing"
-        playerTurn.textContent = "Player X's Turn"
     }
-
+    // Player Turn message display 
+    function displayTurn() {
+        if(X_Turn) {
+            if(firstPlayerName) {
+                playerTurn.textContent = `${firstPlayerName}'s Turn`
+            } else {
+                playerTurn.textContent = "Player X's Turn"
+            }
+        } else {
+            if(secondPlayerName) {
+                playerTurn.textContent = `${secondPlayerName}'s Turn`
+            } else {
+                playerTurn.textContent = "Player O's Turn"
+            }
+        }
+    }
     // Restart button and its function
         resetBtn.addEventListener('click',restartGame)
         function restartGame () {
             //remove all eventListeners
             // reset all global variables
-            // show message that game restated
-            // recall function startGame
         localCells.forEach(cell => {
             cell.textContent = ""
             cell.removeEventListener('click', handelClickOnCell)
@@ -94,8 +161,10 @@ function init() {
         })
         numberOfMoves = 0
         infoMessage = ""
-        resultsMessage = "Game restarted"
-        nextMoveOnGrid = [] 
+        resultsMessage = ""
+        nextMoveOnGrid = []
+        gameSituation.textContent = " "
+        playerTurn.textContent = ""
         gameTimer.innerHTML = "00:00"
         displayResultsAndMessages()
         localGrids.forEach(grid => {
@@ -103,8 +172,8 @@ function init() {
             grid.dataset.available = "true"
         })
         globalGride.addEventListener('click', startTime, {once:true})
-        startGame()
         clearInterval(timerInterval)
+        document.querySelector(".hidden_Inputs").classList.toggle("popup_start")
     }
 
     //time function 
@@ -119,22 +188,23 @@ function init() {
                 minute++
                 second = 0
             }
-            console.log(minute, second)
         },1000)
     }
     // with first click on the grid the time will run
     globalGride.addEventListener('click', startTime, {once:true})
 
-    function handelClickOnCell(event) 
-    {
+    function handelClickOnCell(event) {
         const clickedCell = event.target
         numberOfMoves++ // with every click increase the numberOfMoves by one
         let currentTurn
+        let currentPlayer
         if(X_Turn) {
             currentTurn = 'X'
+            currentPlayer = (firstPlayerName)? firstPlayerName : 'X'
             X_Moves++
         } else {
             currentTurn = 'O'
+            currentPlayer = (secondPlayerName)? secondPlayerName : 'X'
             O_Moves++
         }
         const clickedOnGridNumber = clickedCell.parentNode.dataset.localBoard
@@ -153,7 +223,7 @@ function init() {
                     clickedCell.parentNode.dataset.available = "false"
                     nextMoveAvailability = "false"
                     clickedCell.parentNode.dataset.winner = clickedCell.textContent
-                    resultsMessage = `winner is ${clickedCell.parentNode.dataset.winner} on grid number ${clickedOnGridNumber}`
+                    resultsMessage = `winner is ${currentPlayer} on grid number ${clickedOnGridNumber}`
                 } else if(isLocalDraw(clickedOnGridNumber)) {
                     clickedCell.parentNode.dataset.available = "false"
                     clickedCell.parentNode.dataset.winner = "none"
@@ -161,7 +231,7 @@ function init() {
                     nextMoveAvailability = "false"
                 }
                 if(isGlobalWins(currentTurn)) {
-                    resultsMessage = `Game ended.<br>The winner is ${currentTurn}.<br>Total moves ${numberOfMoves}.<br>X's total moves ${X_Moves}.<br>O's total moves ${O_Moves}.<br>Total time ${minute}:${second}`
+                    resultsMessage = `Game ended.<br>The winner is ${currentPlayer}.<br>Total moves ${numberOfMoves}.<br>X's total moves ${X_Moves}.<br>O's total moves ${O_Moves}.<br>Total time ${minute}:${second}`
                     endGame()
                 } else if(isGlobalDraw()) {
                     resultsMessage = `No winner.<br>It's totally tied.<br>Total off moves ${numberOfMoves}.<br>X's total moves ${X_Moves}.<br>O's total moves ${O_Moves}.<br>Total time ${minute}:${second}`
@@ -257,7 +327,7 @@ function init() {
     // switch turn between players
     const swapTurn = () => {
         X_Turn = !X_Turn
-        playerTurn.textContent = (X_Turn)? "Player X's Turn" : "Player O's Turn"
+        displayTurn()
     }
 
     //display messages function

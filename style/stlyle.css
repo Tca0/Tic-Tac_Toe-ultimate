@@ -216,7 +216,7 @@ h4 {
     position: absolute;
     transform-style: preserve-3d;
     transform: translateZ(-25px);
-    transition: transform 1s;
+    transition: transform 200ms;
 }
 #dice-face {
     position: absolute;
@@ -225,32 +225,29 @@ h4 {
     line-height: 42px;
     font-size: 15px;
     font-weight: bold;
-    /* background-color: white; */
+    background-color: white;
     text-align: center;
+    border-radius: 10%;
 }
 .front-1 {
     transform: translateZ(25px);
-    background-color: blue;
 }
 .back-2 {
     transform: rotateX(-180deg) translateZ(25px);
-    background-color: pink;
+    
 }
 .top-3 {
     transform: rotateX(90deg) translateZ(25px);
-    background-color: plum;
+    
 }
 .bottom-4 {
     transform: rotateX(-90deg) translateZ(25px);
-    background-color: powderblue;
 }
 .right-5 {
     transform: rotateY(-90deg) translateZ(25px);
-    background-color: purple;
 }
 .left-6 {
     transform: rotateY(90deg) translateZ(25px);
-    background-color: rebeccapurple;
 }
 span {
     font-size: 90px;
@@ -294,9 +291,14 @@ label {
     left: 0;
     right: 0;
 }
+.startGameBtn {
+    margin-left: 30%;
+    margin-top: 0px; 
+}
 .popup_start {
     position: absolute;
     display: block;
+    flex-direction: column;
     z-index: 1;
     background-color: rgb(16, 17, 13);
     opacity: 0.9;
@@ -308,9 +310,7 @@ label {
     bottom: 0;
     left: 0;
     right: 0;
-    justify-content: center;
-    align-items: center;
 }
 .popup_start >* {
-    margin-top: 30%;
+    margin-top: 100px;
 }
