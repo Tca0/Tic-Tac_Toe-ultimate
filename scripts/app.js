@@ -30,6 +30,15 @@ function init() {
     let X_Moves = 0
     let O_Moves = 0
     let timerInterval
+    //creating a sounds 
+    const localWin = new Audio("../sounds/local-win-sound.wav");
+    const startGameSound = new Audio("../sounds/game-start-sound.wav")
+    const clockTicking = new Audio("../sounds/clock-game-time-sound.wav")
+    const globalWinSound = new Audio("../sounds/global-winng-sound.wav")
+    const wrongMoveSound = new Audio("../sounds/wrong-move-sound.wav")
+    const placeMarkSound = new Audio("../sounds/place-mark-sound.wav")
+    const localDrawSound = new Audio("../sounds/local-draw-sound.wav")
+    const globalDrawSound = new Audio("../sounds/global-draw-sound.wav")
 // after game loaded and before game start a popup window will show up and players 
 // will enter their names and each one will click on a dice
 // the numbers showed on dices will be compared and the player with bigger number will start first
@@ -42,8 +51,8 @@ function init() {
     let secondPlayerNum
     let firstPlayerName 
     let secondPlayerName 
-    //generating a random dice face between 1-6
-    function showDiceFaceNumber(number,faceView) {
+//generating a random dice face between 1-6
+    const showDiceFaceNumber = (number,faceView) => {
         switch(number) {
             case 1 :
                 faceView.innerHTML = `<span>&#9856;</span>`;
@@ -75,7 +84,6 @@ function init() {
         firstDiceFaces.forEach(face => {
         showDiceFaceNumber(firstPlayerNum,face)
     })
-    console.log(firstPlayerNum)
     return firstPlayerNum
     }
     const rollDice2 = () => {
@@ -87,7 +95,6 @@ function init() {
         secondDiceFaces.forEach(face => {
         showDiceFaceNumber(secondPlayerNum,face)
     })
-    console.log(secondPlayerNum)
     return secondPlayerNum
     }
     const getRandomRotate = () => {
@@ -96,22 +103,25 @@ function init() {
     }
     firstDice.addEventListener('click', rollDice1)
     secondDice.addEventListener('click', rollDice2)
-    // function to close first start div and get users information
+// function to close first start div and get users information
     const startBtn = document.querySelector(".startGameBtn")
-    function getPlayersInfoAndStart() {
+    const getPlayersInfoAndStart = () => {
         firstPlayerName = document.querySelector("#firstPlayerName").value
         secondPlayerName = document.querySelector("#secondPlayerName").value
-        document.querySelector(".hidden_Inputs").classList.remove("popup_start")
-        startGame()
+        startGameSound.play()
+        setTimeout(() => {
+            document.querySelector(".hidden_Inputs").classList.remove("popup_start")
+            startGame()
+        },5000)
     }
     startBtn.addEventListener('click', getPlayersInfoAndStart)
-    // function to trim names from spaces and Capitalize first letter
-    function correctNames(string) {
-        return string.trim().replace(/[^a-zA-Z]/g, '').charAt(0).toUpperCase() + string.trim().replace(/[^a-zA-Z]/g, '').slice(1).toLowerCase()
-    } 
+// function to trim names from spaces and Capitalize first letter
+    const correctNames = (string) =>
+        string.trim().replace(/[^a-zA-Z]/g, '').charAt(0).toUpperCase() + string.trim().replace(/[^a-zA-Z]/g, '').slice(1).toLowerCase()
+
     // start the game by calling the startGame function
-    // start game function
-    function startGame() {
+// start game function
+    const startGame = () => {
         firstPlayerName = correctNames(firstPlayerName)
         secondPlayerName = correctNames(secondPlayerName)
         //if players entered their names or not
@@ -122,7 +132,6 @@ function init() {
             X_Turn = false
         }
         displayTurn()
-        console.log()
         X_Moves = 0
         O_Moves = 0
         localCells.forEach(cell => {
@@ -132,8 +141,8 @@ function init() {
         emptyCellsNumber = 81
         gameSituation.textContent = "Start Playing"
     }
-    // Player Turn message display 
-    function displayTurn() {
+// Player Turn message display 
+    const displayTurn= () => {
         if(X_Turn) {
             if(firstPlayerName) {
                 playerTurn.textContent = `${firstPlayerName}'s Turn`
@@ -148,9 +157,9 @@ function init() {
             }
         }
     }
-    // Restart button and its function
-        resetBtn.addEventListener('click',restartGame)
-        function restartGame () {
+// Restart button and its function
+    resetBtn.addEventListener('click',restartGame)
+    function restartGame(){
             //remove all eventListeners
             // reset all global variables
         localCells.forEach(cell => {
@@ -176,10 +185,10 @@ function init() {
         document.querySelector(".hidden_Inputs").classList.toggle("popup_start")
     }
 
-    //time function 
+//time function 
+    let minute = 0
+    let second = 0
     const startTime = () => {
-        let second = 0
-        let minute = 0
         clearInterval(timerInterval)
         timerInterval = setInterval(function () {
             second++
@@ -188,9 +197,11 @@ function init() {
                 minute++
                 second = 0
             }
+            clockTicking.currentTime = 0
         },1000)
+        clockTicking.play()
     }
-    // with first click on the grid the time will run
+// with first click on the grid the time will run
     globalGride.addEventListener('click', startTime, {once:true})
 
     function handelClickOnCell(event) {
@@ -220,20 +231,24 @@ function init() {
             if(isItAnewGame() || isItRightLocalBoard(clickedOnGridNumber)) {
                 placeMark(clickedCell)
                 if(isLocalBoardWins(clickedOnGridNumber, currentTurn)) {
+                    setTimeout(() => localWin.play(), 800)
                     clickedCell.parentNode.dataset.available = "false"
                     nextMoveAvailability = "false"
                     clickedCell.parentNode.dataset.winner = clickedCell.textContent
                     resultsMessage = `winner is ${currentPlayer} on grid number ${clickedOnGridNumber}`
                 } else if(isLocalDraw(clickedOnGridNumber)) {
+                    setTimeout(() => localDrawSound.play(), 800)
                     clickedCell.parentNode.dataset.available = "false"
                     clickedCell.parentNode.dataset.winner = "none"
                     resultsMessage = `It's a draw in board number ${clickedOnGridNumber}`
                     nextMoveAvailability = "false"
                 }
                 if(isGlobalWins(currentTurn)) {
+                    setTimeout(() => globalWinSound.play(), 800)
                     resultsMessage = `Game ended.<br>The winner is ${currentPlayer}.<br>Total moves ${numberOfMoves}.<br>X's total moves ${X_Moves}.<br>O's total moves ${O_Moves}.<br>Total time ${minute}:${second}`
                     endGame()
                 } else if(isGlobalDraw()) {
+                    setTimeout(() => globalDrawSound.play(), 800)
                     resultsMessage = `No winner.<br>It's totally tied.<br>Total off moves ${numberOfMoves}.<br>X's total moves ${X_Moves}.<br>O's total moves ${O_Moves}.<br>Total time ${minute}:${second}`
                     endGame()
                 }
@@ -255,17 +270,17 @@ function init() {
         }
         displayResultsAndMessages()
     }
-    // function to check if it's a new game started 
+// function to check if it's a new game started 
     const isItAnewGame = () => emptyCellsNumber === 81
     
-    // function to check if it's an empty cell 
+// function to check if it's an empty cell 
     const isValidCell = (cell) => !(cell.classList.contains('X') || cell.classList.contains('O'))
 
     // function to check if it's a right local board was clicked
     const isItRightLocalBoard = (boardNumber) => 
     (boardNumber === nextMoveOnGrid[nextMoveOnGrid.length-1] || nextMoveOnGrid[nextMoveOnGrid.length-1] === "anyAvailableBoard")
 
-    // Local wins function 
+// Local wins function 
     const isLocalBoardWins =(index, currentTurn) => {
         const x = document.querySelector(`.local[data-local-board="${index}"]`)
         const cells = Array.from(x.children)
@@ -279,7 +294,7 @@ function init() {
         return
     }
 
-    //local draw
+//local draw
     const isLocalDraw = (index) => {
         const x = document.querySelector(`.local[data-local-board="${index}"]`)
         const cells = Array.from(x.children)
@@ -291,7 +306,7 @@ function init() {
         return
     }
 
-    // Global wins
+// Global wins
     const isGlobalWins = (currentTurn) => {
         const grid = Array.from(globalGride.children)
             return winingConditions.some(condition => {
@@ -301,7 +316,7 @@ function init() {
             })
     }
 
-    // global draw function
+// global draw function
     const isGlobalDraw = () => {
         const grid = Array.from(globalGride.children)
         return winingConditions.every(condition => {
@@ -311,7 +326,7 @@ function init() {
         })
     }
 
-    // Placing mark in the cell
+// Placing mark in the cell
     const placeMark = (cell) => {
         gameSituation.textContent = "Game In Progress"
             if(X_Turn) {
@@ -321,16 +336,18 @@ function init() {
                 cell.classList.add('O')
                 cell.textContent ='O'
             }
-            emptyCellsNumber--
+        emptyCellsNumber--
+        placeMarkSound.play()
+        placeMarkSound.currentTime = 0
     } 
 
-    // switch turn between players
+// switch turn between players
     const swapTurn = () => {
         X_Turn = !X_Turn
         displayTurn()
     }
 
-    //display messages function
+//display messages function
     const displayResultsAndMessages = () => {
         if(resultsMessage) {
             results.innerHTML = resultsMessage
@@ -343,25 +360,33 @@ function init() {
         infoMessage = ""
     }
 
-    const openMessagesWindow = () => showResultsDiv.classList.add("popup")
-    // function to close the message window when user clicks on any empty space on the screen
+    const openMessagesWindow = () => {
+        setTimeout(() => showResultsDiv.classList.add("popup") ,500)
+    }
+// function to close the message window when user clicks on any empty space on the screen
     window.onclick = function(e) {
         if (e.target == showResultsDiv) {
             showResultsDiv.classList.remove("popup")
         }
     }
 
-    const showDialog = () => dialogBox.showModal()
+    const showDialog = () => {
+        dialogBox.showModal()
+        wrongMoveSound.play()
+    }
     const closeDialog = () => {
         dialogBox.close()
+        wrongMoveSound.pause()
+        wrongMoveSound.currentTime = 0
     } 
     dialogBox.addEventListener('click', closeDialog)
 
 
-    //end game function
+//end game function
     const endGame = () => {
         localCells.forEach(cell => {
         cell.removeEventListener('click', handelClickOnCell)
+        clockTicking.pause()
     })
     globalGride.removeEventListener('click', startTime)
     clearInterval(timerInterval)
