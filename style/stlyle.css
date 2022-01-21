@@ -40,6 +40,32 @@ article {
     outline: none;
     cursor: pointer;
 }
+#mute {
+    margin-left: 50px;
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+#mute:checked {
+    background-color: red;
+    border-color: white;
+    background-color: green;
+}
+#mute:hover {
+    font-size: 30px;
+    cursor: grab;
+}
+#muteButton {
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+#muteButton:hover {
+    font-size: 30px;
+}
+
 .global, .local {
     cursor: pointer;
     display: grid;

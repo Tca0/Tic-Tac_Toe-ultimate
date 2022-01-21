@@ -10,6 +10,8 @@ function init() {
     const dialogBox = document.querySelector("#dialogInfo")
     const errorMessages = document.querySelector(".infoMessages")
     const gameTimer = document.querySelector("#timer")
+    const muteBtnStarter = document.querySelector("#mute")
+    const muteOrUnmute = document.querySelector("#muteButton")
     // const startGameTime = document.querySelector(".startGame")
     const winingConditions = [
         [0, 1, 2],
@@ -31,14 +33,23 @@ function init() {
     let O_Moves = 0
     let timerInterval
     //creating a sounds 
-    const localWin = new Audio("../sounds/local-win-sound.wav");
+    let soundTracksArray = [] // to mute all sounds when press mute button
+    const localWinSound = new Audio("../sounds/local-win-sound.wav");
+    soundTracksArray.push(localWinSound)
     const startGameSound = new Audio("../sounds/game-start-sound.wav")
+    soundTracksArray.push(startGameSound)
     const clockTicking = new Audio("../sounds/clock-game-time-sound.wav")
+    soundTracksArray.push(clockTicking)
     const globalWinSound = new Audio("../sounds/global-winng-sound.wav")
+    soundTracksArray.push(globalWinSound)
     const wrongMoveSound = new Audio("../sounds/wrong-move-sound.wav")
+    soundTracksArray.push(wrongMoveSound)
     const placeMarkSound = new Audio("../sounds/place-mark-sound.wav")
+    soundTracksArray.push(placeMarkSound)
     const localDrawSound = new Audio("../sounds/local-draw-sound.wav")
+    soundTracksArray.push(localDrawSound)
     const globalDrawSound = new Audio("../sounds/global-draw-sound.wav")
+    soundTracksArray.push(globalDrawSound)
 // after game loaded and before game start a popup window will show up and players 
 // will enter their names and each one will click on a dice
 // the numbers showed on dices will be compared and the player with bigger number will start first
@@ -108,22 +119,53 @@ function init() {
     const getPlayersInfoAndStart = () => {
         firstPlayerName = document.querySelector("#firstPlayerName").value
         secondPlayerName = document.querySelector("#secondPlayerName").value
-        startGameSound.play()
         setTimeout(() => {
             document.querySelector(".hidden_Inputs").classList.remove("popup_start")
             startGame()
         },5000)
+        startGameSound.play()
     }
+    //function to mute the sounds 
+    const muteSounds = () =>
+        soundTracksArray.forEach(track => {
+            track.muted = true
+        })
+    muteBtnStarter.addEventListener('click', muteSounds)
     startBtn.addEventListener('click', getPlayersInfoAndStart)
 // function to trim names from spaces and Capitalize first letter
     const correctNames = (string) =>
         string.trim().replace(/[^a-zA-Z]/g, '').charAt(0).toUpperCase() + string.trim().replace(/[^a-zA-Z]/g, '').slice(1).toLowerCase()
 
+        //setting the mutters and un mutters before game start and inside it
+        let muted = false
+        const muteOrUnmuteSounds = () => {
+            soundTracksArray.forEach(track => {
+            track.muted = !track.muted
+        })
+        muted = !muted
+        if(muted === true) {
+            console.log("unmute now")
+            muteOrUnmute.innerHTML = `&#x1F508;`
+        } else {
+            console.log("mute")
+            muteOrUnmute.innerHTML = `&#128263;`
+        }
+        }
+        muteOrUnmute.addEventListener('click', muteOrUnmuteSounds)
     // start the game by calling the startGame function
 // start game function
     const startGame = () => {
         firstPlayerName = correctNames(firstPlayerName)
         secondPlayerName = correctNames(secondPlayerName)
+        if(muted === true) {
+            console.log("unmute now")
+            muteOrUnmute.innerHTML = `&#x1F508;`
+        } else {
+            console.log("mute")
+            muteOrUnmute.innerHTML = `&#128263;`
+        }
+        console.log(muted)
+        muteOrUnmute.innerHTML = (!muted)? `&#x1F508;`: `&#128263;`
         //if players entered their names or not
         // if they choose to decided to roll the dices with names or without
         if((firstPlayerNum>secondPlayerNum)||((!firstPlayerNum)&&(!secondPlayerNum))){
@@ -159,6 +201,13 @@ function init() {
     }
 // Restart button and its function
     resetBtn.addEventListener('click',restartGame)
+    const stopSounds = (soundTracks) => {
+        soundTracks.forEach(track => {
+            track.pause()
+            track.currentTime = 0
+            track.muted = false
+        })
+    }
     function restartGame(){
             //remove all eventListeners
             // reset all global variables
@@ -182,6 +231,7 @@ function init() {
         })
         globalGride.addEventListener('click', startTime, {once:true})
         clearInterval(timerInterval)
+        stopSounds(soundTracksArray)
         document.querySelector(".hidden_Inputs").classList.toggle("popup_start")
     }
 
@@ -231,7 +281,7 @@ function init() {
             if(isItAnewGame() || isItRightLocalBoard(clickedOnGridNumber)) {
                 placeMark(clickedCell)
                 if(isLocalBoardWins(clickedOnGridNumber, currentTurn)) {
-                    setTimeout(() => localWin.play(), 800)
+                    setTimeout(() => localWinSound.play(), 800)
                     clickedCell.parentNode.dataset.available = "false"
                     nextMoveAvailability = "false"
                     clickedCell.parentNode.dataset.winner = clickedCell.textContent
