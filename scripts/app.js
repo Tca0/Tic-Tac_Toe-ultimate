@@ -31,6 +31,7 @@ function init() {
     let X_Moves = 0
     let O_Moves = 0
     let timerInterval
+
     //creating a sounds 
     let soundTracksArray = [] // to mute all sounds when press mute button
     const localWinSound = new Audio("../sounds/local-win-sound.wav");
@@ -49,6 +50,7 @@ function init() {
     soundTracksArray.push(localDrawSound)
     const globalDrawSound = new Audio("../sounds/global-draw-sound.wav")
     soundTracksArray.push(globalDrawSound)
+
 // after game loaded and before game start a popup window will show up and players 
 // will enter their names and each one will click on a dice
 // the numbers showed on dices will be compared and the player with bigger number will start first
@@ -115,17 +117,20 @@ function init() {
     }
     firstDice.addEventListener('click', rollDice1)
     secondDice.addEventListener('click', rollDice2)
+    
 // function to close first start div and get users information
+// and change starter show to red-yellow-green
     const startBtn = document.querySelector(".startGameBtn")
     const getPlayersInfoAndStart = () => {
         firstPlayerName = document.querySelector("#firstPlayerName").value
         secondPlayerName = document.querySelector("#secondPlayerName").value
-        let light = ['redLight', 'yellowLight', 'greenLight']
+        const light = ['redLight', 'yellowLight', 'greenLight']
         let i = 0
-        document.querySelector(".game_Rules").innerHTML = ''
+        document.querySelector("#rulesExplaining").classList.add("hideText")
         document.querySelector(".game_Rules").classList.add(`${light[i]}`)
             setInterval(() => {
                 i++
+                document.querySelector(".game_Rules").classList.remove(`${light[i-1]}`)
             document.querySelector(".game_Rules").classList.add(`${light[i]}`)
         },2200)
         
@@ -141,8 +146,8 @@ function init() {
         string.trim().replace(/[^a-zA-Z]/g, '').charAt(0).toUpperCase() + string.trim().replace(/[^a-zA-Z]/g, '').slice(1).toLowerCase()
         startBtn.addEventListener('click', getPlayersInfoAndStart)
 
-        //setting the mutters and un mutters before game start and inside it
-        //function to mute the sounds at the beginning before game starts
+//setting the mutters and un mutters before game start and inside it
+//functions to mute the sounds at the beginning before game starts and during the game
     const muteOrUnmuteSounds = () =>{
             soundTracksArray.forEach(track => {
             track.muted = !track.muted
@@ -150,7 +155,15 @@ function init() {
         muted = !muted
         showingMuteUnmuteIcon(muted)
         }
-    
+// function to stop sounds and reset all audios
+        const stopSounds = (soundTracks) => {
+        soundTracks.forEach(track => {
+            track.pause()
+            track.currentTime = 0
+            track.muted = false
+        })
+    }
+    //function to show the right sounds icon
     const showingMuteUnmuteIcon = (isMute) => {
         if(isMute === true) {
             muteOrUnmute.innerHTML = '&#128263;'
@@ -170,7 +183,6 @@ function init() {
         firstPlayerName = correctNames(firstPlayerName)
         secondPlayerName = correctNames(secondPlayerName)
         showingMuteUnmuteIcon(muted)
-        console.log(muted)
         //if players entered their names or not
         // if they choose to decided to roll the dices with names or without
         if((firstPlayerNum>secondPlayerNum)||((!firstPlayerNum)&&(!secondPlayerNum))){
@@ -188,31 +200,7 @@ function init() {
         emptyCellsNumber = 81
         gameSituation.textContent = "Start Playing"
     }
-// Player Turn message display 
-    const displayTurn= () => {
-        if(X_Turn) {
-            if(firstPlayerName) {
-                playerTurn.textContent = `${firstPlayerName}'s Turn`
-            } else {
-                playerTurn.textContent = "Player X's Turn"
-            }
-        } else {
-            if(secondPlayerName) {
-                playerTurn.textContent = `${secondPlayerName}'s Turn`
-            } else {
-                playerTurn.textContent = "Player O's Turn"
-            }
-        }
-    }
 // Restart button and its function
-    resetBtn.addEventListener('click',restartGame)
-    const stopSounds = (soundTracks) => {
-        soundTracks.forEach(track => {
-            track.pause()
-            track.currentTime = 0
-            track.muted = false
-        })
-    }
     function restartGame(){
             //remove all eventListeners
             // reset all global variables
@@ -238,7 +226,10 @@ function init() {
         clearInterval(timerInterval)
         stopSounds(soundTracksArray)
         document.querySelector(".hidden_Inputs").classList.toggle("popup_start")
+        document.querySelector(".game_Rules").classList.remove("greenLight")
+        document.querySelector("#rulesExplaining").classList.remove("hideText")
     }
+    resetBtn.addEventListener('click',restartGame)
 
 //time function 
     let minute = 0
@@ -395,7 +386,22 @@ function init() {
         placeMarkSound.play()
         placeMarkSound.currentTime = 0
     } 
-
+// Player Turn message display 
+    const displayTurn= () => {
+        if(X_Turn) {
+            if(firstPlayerName) {
+                playerTurn.textContent = `${firstPlayerName}'s Turn`
+            } else {
+                playerTurn.textContent = "Player X's Turn"
+            }
+        } else {
+            if(secondPlayerName) {
+                playerTurn.textContent = `${secondPlayerName}'s Turn`
+            } else {
+                playerTurn.textContent = "Player O's Turn"
+            }
+        }
+    }
 // switch turn between players
     const swapTurn = () => {
         X_Turn = !X_Turn
@@ -436,7 +442,6 @@ function init() {
     } 
     dialogBox.addEventListener('click', closeDialog)
 
-
 //end game function
     const endGame = () => {
         localCells.forEach(cell => {
@@ -446,6 +451,5 @@ function init() {
     globalGride.removeEventListener('click', startTime)
     clearInterval(timerInterval)
     }
-
 }
 window.addEventListener('DOMContentLoaded', init)

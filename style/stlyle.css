@@ -412,6 +412,8 @@ h3 {
     width: 100px;
     height: 100px;
     content: '';
+    margin-left: calc(50% - 50px);
+    transform: scale(2,2);
 }
 .greenLight {
     background-color: green;
@@ -419,4 +421,9 @@ h3 {
     width: 100px;
     height: 100px;
     content: '';
+    margin-left: calc(50% - 50px);
+    transform: scale(2,2);
+}
+.hideText {
+    display: none;
 }
