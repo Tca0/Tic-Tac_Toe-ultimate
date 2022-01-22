@@ -12,7 +12,6 @@ function init() {
     const gameTimer = document.querySelector("#timer")
     const muteBtnStarter = document.querySelector("#mute")
     const muteOrUnmute = document.querySelector("#muteButton")
-    // const startGameTime = document.querySelector(".startGame")
     const winingConditions = [
         [0, 1, 2],
         [3, 4, 5],
@@ -62,6 +61,8 @@ function init() {
     let secondPlayerNum
     let firstPlayerName 
     let secondPlayerName 
+    let muted = false
+
 //generating a random dice face between 1-6
     const showDiceFaceNumber = (number,faceView) => {
         switch(number) {
@@ -119,53 +120,57 @@ function init() {
     const getPlayersInfoAndStart = () => {
         firstPlayerName = document.querySelector("#firstPlayerName").value
         secondPlayerName = document.querySelector("#secondPlayerName").value
+        let light = ['redLight', 'yellowLight', 'greenLight']
+        let i = 0
+        document.querySelector(".game_Rules").innerHTML = ''
+        document.querySelector(".game_Rules").classList.add(`${light[i]}`)
+            setInterval(() => {
+                i++
+            document.querySelector(".game_Rules").classList.add(`${light[i]}`)
+        },2200)
+        
         setTimeout(() => {
             document.querySelector(".hidden_Inputs").classList.remove("popup_start")
             startGame()
         },5000)
         startGameSound.play()
     }
-    //function to mute the sounds 
-    const muteSounds = () =>
-        soundTracksArray.forEach(track => {
-            track.muted = true
-        })
-    muteBtnStarter.addEventListener('click', muteSounds)
-    startBtn.addEventListener('click', getPlayersInfoAndStart)
+
 // function to trim names from spaces and Capitalize first letter
     const correctNames = (string) =>
         string.trim().replace(/[^a-zA-Z]/g, '').charAt(0).toUpperCase() + string.trim().replace(/[^a-zA-Z]/g, '').slice(1).toLowerCase()
+        startBtn.addEventListener('click', getPlayersInfoAndStart)
 
         //setting the mutters and un mutters before game start and inside it
-        let muted = false
-        const muteOrUnmuteSounds = () => {
+        //function to mute the sounds at the beginning before game starts
+    const muteOrUnmuteSounds = () =>{
             soundTracksArray.forEach(track => {
             track.muted = !track.muted
         })
         muted = !muted
-        if(muted === true) {
-            console.log("unmute now")
-            muteOrUnmute.innerHTML = `&#x1F508;`
-        } else {
-            console.log("mute")
-            muteOrUnmute.innerHTML = `&#128263;`
+        showingMuteUnmuteIcon(muted)
         }
+    
+    const showingMuteUnmuteIcon = (isMute) => {
+        if(isMute === true) {
+            muteOrUnmute.innerHTML = '&#128263;'
+            muteBtnStarter.innerHTML = '&#128263;'
         }
-        muteOrUnmute.addEventListener('click', muteOrUnmuteSounds)
+        else {
+            muteOrUnmute.innerHTML = '&#x1F508;'
+            muteBtnStarter.innerHTML = '&#x1F508;'
+        }
+    }
+    muteBtnStarter.addEventListener('click', muteOrUnmuteSounds)
+    muteOrUnmute.addEventListener('click', muteOrUnmuteSounds)
+
     // start the game by calling the startGame function
 // start game function
     const startGame = () => {
         firstPlayerName = correctNames(firstPlayerName)
         secondPlayerName = correctNames(secondPlayerName)
-        if(muted === true) {
-            console.log("unmute now")
-            muteOrUnmute.innerHTML = `&#x1F508;`
-        } else {
-            console.log("mute")
-            muteOrUnmute.innerHTML = `&#128263;`
-        }
+        showingMuteUnmuteIcon(muted)
         console.log(muted)
-        muteOrUnmute.innerHTML = (!muted)? `&#x1F508;`: `&#128263;`
         //if players entered their names or not
         // if they choose to decided to roll the dices with names or without
         if((firstPlayerNum>secondPlayerNum)||((!firstPlayerNum)&&(!secondPlayerNum))){

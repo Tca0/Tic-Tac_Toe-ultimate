@@ -395,3 +395,28 @@ h3 {
     margin-top: 0px;
     margin-top: 0px;
 }
+/* starter screen */
+.redLight {
+    background-color: red;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    content: '';
+    align-self: center;
+    margin-left: calc(50% - 50px);
+    transform: scale(2,2);
+}
+.yellowLight {
+    background-color: yellow;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    content: '';
+}
+.greenLight {
+    background-color: green;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    content: '';
+}
