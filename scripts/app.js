@@ -422,7 +422,7 @@ function init() {
     }
 
     const openMessagesWindow = () => {
-        setTimeout(() => showResultsDiv.classList.add("popup") ,500)
+        setTimeout(() => showResultsDiv.classList.add("popup") ,300)
     }
 // function to close the message window when user clicks on any empty space on the screen
     window.onclick = function(e) {

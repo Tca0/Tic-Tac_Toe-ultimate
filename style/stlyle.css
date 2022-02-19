@@ -320,8 +320,10 @@ label {
 }
 .popup_start {
     position: absolute;
-    display: block;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
     z-index: 1;
     background-color: rgb(16, 17, 13);
     opacity: 0.9;
@@ -329,17 +331,11 @@ label {
     height: 100%;
     overflow: auto;
     cursor: pointer;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 .popup_start >* {
     margin-top: 100px;
 }
 .startGameBtn {
-    margin-left: 30%;
-    margin-top: 0px;
     font-size: 20px;
     font-weight: 900;
     border-style:ridge;
@@ -403,7 +399,7 @@ h3 {
     height: 100px;
     content: '';
     align-self: center;
-    margin-left: calc(50% - 50px);
+    /* margin-left: calc(50% - 50px); */
     transform: scale(2,2);
 }
 .yellowLight {
@@ -412,7 +408,7 @@ h3 {
     width: 100px;
     height: 100px;
     content: '';
-    margin-left: calc(50% - 50px);
+    /* margin-left: calc(50% - 50px); */
     transform: scale(2,2);
 }
 .greenLight {
@@ -421,7 +417,7 @@ h3 {
     width: 100px;
     height: 100px;
     content: '';
-    margin-left: calc(50% - 50px);
+    /* margin-left: calc(50% - 50px); */
     transform: scale(2,2);
 }
 .hideText {
