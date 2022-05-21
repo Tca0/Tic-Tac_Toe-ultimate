@@ -205,7 +205,8 @@ article {
     align-items: center;
 }
 .results {
-    margin-top: 40%;
+    position: relative;
+    top: 45%;
     color: white;
     text-align: center;
     font-size: 30px;
@@ -299,6 +300,7 @@ span {
     align-items: center;
     flex-grow: 1;
     justify-content: space-around;
+    max-height: fit-content;
 }
 label {
     color: white;
@@ -332,8 +334,8 @@ label {
     overflow: auto;
     cursor: pointer;
 }
-.popup_start >* {
-    margin-top: 100px;
+.popup_start > * {
+    margin-top: 20px;
 }
 .startGameBtn {
     font-size: 20px;
@@ -393,31 +395,34 @@ h3 {
 }
 /* starter screen */
 .redLight {
+    position: relative;
+    top: 45%;
     background-color: red;
     border-radius: 50%;
     width: 100px;
     height: 100px;
     content: '';
     align-self: center;
-    /* margin-left: calc(50% - 50px); */
     transform: scale(2,2);
 }
 .yellowLight {
+    position: relative;
+    top: 45%;
     background-color: yellow;
     border-radius: 50%;
     width: 100px;
     height: 100px;
     content: '';
-    /* margin-left: calc(50% - 50px); */
     transform: scale(2,2);
 }
 .greenLight {
+    position: relative;
+    top: 45%;
     background-color: green;
     border-radius: 50%;
     width: 100px;
     height: 100px;
     content: '';
-    /* margin-left: calc(50% - 50px); */
     transform: scale(2,2);
 }
 .hideText {
