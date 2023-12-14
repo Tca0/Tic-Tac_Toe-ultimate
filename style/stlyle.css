@@ -133,6 +133,8 @@ article {
 [data-winner="none"] {
     cursor: not-allowed;
 }
+
+/* choosing a mark style for the squar winner */
 [data-winner="O"]::after {
     content: 'O';
     color: green;
@@ -155,6 +157,7 @@ article {
     text-decoration-style: double;
     text-decoration-line: underline;
 }
+/*  when a square oir local gride is completed will not be availabe on the board so will hide all inner gride  */
 [data-available="false"]>* {
     display: none;
 }
