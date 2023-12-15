@@ -66,6 +66,7 @@ article {
     font-size: 30px;
 }
 
+/* making global & inner grids */
 .global, .local {
     cursor: pointer;
     display: grid;
@@ -128,6 +129,8 @@ article {
 .local_grid_cell:nth-child(9) {
     border-bottom: none;
 }
+/* making global grid with inder grids end */
+
 [data-winner="X"],
 [data-winner="O"],
 [data-winner="none"] {
