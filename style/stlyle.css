@@ -89,13 +89,13 @@ article {
     padding: 10px;
     border: 4px double black;
 }
-.local_grid_cell {
-    cursor: pointer;
+.cell {
     flex-grow: 1;
-    border: 3px solid black;
     padding: 10px;
     width: 40px;
     height: 40px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
 }
 .local:first-child,
 .local:nth-child(2),
@@ -131,10 +131,37 @@ article {
 }
 /* making global grid with inder grids end */
 
-[data-winner="X"],
-[data-winner="O"],
-[data-winner="none"] {
+.winner-X,
+.winner-O,
+.drwa, .drwa > *,
+.X,
+.O {
     cursor: not-allowed;
+}
+
+.local.available .cell.available:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.cell.available {
+    cursor: pointer;
+}
+.local:not(.available) .cell {
+    cursor: not-allowed;
+}
+.X,
+.O {
+    text-align: center;
+    font-size: larger;
+    font-family: 'Brush Script MT', cursive;
+}
+.X {
+    color: red;
+
+}
+.O {
+    color: green;
 }
 
 /* choosing a mark style for the squar winner */
@@ -165,19 +192,7 @@ article {
     display: none;
 }
 
-.X,
-.O {
-    cursor: not-allowed;
-    text-align: center;
-    font-size: large;
-}
-.X {
-    color: red;
 
-}
-.O {
-    color: green;
-}
 /* Results popup div */
 .hiddenResults {
     position: absolute;
