@@ -14,14 +14,14 @@ function init() {
   ];
   let nextMoveOnBoard = null;
 
-  function getCellsFromBoard(board) {
+  function getChildren(board) {
     // return board.querySelectorAll(".cell");
     return Object.values(board.children);
   }
 
   function addClickEventListener(board) {
     board.classList.add("available");
-    const cells = getCellsFromBoard(board);
+    const cells = getChildren(board);
     cells.forEach((cell) => {
       if (cell.classList.length === 1)
         cell.addEventListener("click", handleCellClick, { once: true });
@@ -30,7 +30,7 @@ function init() {
 
   function removeClickEventListener(board) {
     board.classList.remove("available");
-    const cells = getCellsFromBoard(board);
+    const cells = getChildren(board);
     cells.forEach((cell) => {
       cell.removeEventListener("click", handleCellClick);
     });
