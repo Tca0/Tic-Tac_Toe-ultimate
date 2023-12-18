@@ -15,7 +15,8 @@ function init() {
   let nextMoveOnBoard = null;
 
   function getCellsFromBoard(board) {
-    return board.querySelectorAll(".cell");
+    // return board.querySelectorAll(".cell");
+    return Object.values(board.children);
   }
 
   function addClickEventListener(board) {
@@ -42,8 +43,10 @@ function init() {
     nextMoveOnBoard = parseInt(cell.getAttribute("data-index"));
     cell.textContent = currentPlayer;
     cell.classList.add(currentPlayer);
-    // ? afetr local win check for globla win or drwa
-    // ! after local draw 
+    // ? afetr local win check for globla win or draw
+    // ! after local draw check only for global draw
+    // * for win or drwa same conditions will apply for global win/draw
+    //  & change the name of function to check for win or drwa then apply same function for global win/draw
     if (checkLocalBoardWinner(board)) {
       handleLocalWinOrDraw(
         board,
