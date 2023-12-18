@@ -47,6 +47,8 @@ function init() {
     // ! after local draw check only for global draw
     // * for win or drwa same conditions will apply for global win/draw
     //  & change the name of function to check for win or drwa then apply same function for global win/draw
+    // ^ get children function return only direct children node so we can use it now to either locals or cells
+    
     if (checkLocalBoardWinner(board)) {
       handleLocalWinOrDraw(
         board,
