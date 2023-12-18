@@ -42,14 +42,16 @@ function init() {
     nextMoveOnBoard = parseInt(cell.getAttribute("data-index"));
     cell.textContent = currentPlayer;
     cell.classList.add(currentPlayer);
+    // ? afetr local win check for globla win or drwa
+    // ! after local draw 
     if (checkLocalBoardWinner(board)) {
-      handleLocalWinOrDrwa(
+      handleLocalWinOrDraw(
         board,
         `Player ${currentPlayer} wins!`,
         `winner-${currentPlayer}`
       );
     } else if (checkLocalDraw(board)) {
-      handleLocalWinOrDrwa(board, `drwa`, `drwa`);
+      handleLocalWinOrDraw(board, `drwa`, `drwa`);
     }
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     checkForNextGrid(nextMoveOnBoard);
@@ -68,7 +70,7 @@ function init() {
     const cells = Array.from(board.querySelectorAll(".cell"));
     return cells.every((cell) => cell.classList.length === 2);
   }
-  function handleLocalWinOrDrwa(board, messageToUpdate, classToUpdate) {
+  function handleLocalWinOrDraw(board, messageToUpdate, classToUpdate) {
     board.classList.add(classToUpdate);
     message = messageToUpdate;
     removeClickEventListener(board);
