@@ -134,17 +134,17 @@ article {
 .winner-X,
 .winner-O,
 .drwa, .drwa > *,
-.X,
-.O {
+.cell.X,
+.cell.O {
     cursor: not-allowed;
 }
 
-.local.available .cell:hover {
+.local.available .cell:not(.X):not(.O):hover:hover {
     background-color: #f0f0f0;
     cursor: pointer;
 }
 
-.cell.available {
+.cell {
     cursor: pointer;
 }
 .local:not(.available) .cell {
