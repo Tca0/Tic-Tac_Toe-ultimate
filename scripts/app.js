@@ -39,9 +39,7 @@ function init() {
     if (gameOver) return;
     const cell = event.target;
     const board = cell.parentNode;
-    // if no finalwin or final drwa we should active the board according to the game rules
     nextMoveOnBoard = parseInt(cell.getAttribute("data-index"));
-
     cell.textContent = currentPlayer;
     cell.classList.add(currentPlayer);
     if (checkLocalBoardWinner(board)) {
@@ -77,15 +75,10 @@ function init() {
   }
 
   function checkForNextGrid(idx) {
-    //  is target and unfinshed => then it's will be availabe and the rest disables
-    // is target and finished => then all unfinsihed boards going to be available
     const isFinishedBoard = (board) =>
       board.classList.contains("drwa") ||
       board.classList.contains("winner-X") ||
       board.classList.contains("winner-O");
-
-    console.log(isFinishedBoard(localBoards[idx]));
-
     if (!isFinishedBoard(localBoards[idx])) {
       for (let i = 0; i < 9; i++) {
         if (i != idx) {
