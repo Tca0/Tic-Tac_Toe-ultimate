@@ -22,9 +22,8 @@ function init() {
     board.classList.add("available");
     const cells = getCellsFromBoard(board);
     cells.forEach((cell) => {
-      if (cell.classList.contains("available")) {
+      if (cell.classList.length === 1)
         cell.addEventListener("click", handleCellClick, { once: true });
-      }
     });
   }
 
@@ -33,7 +32,6 @@ function init() {
     const cells = getCellsFromBoard(board);
     cells.forEach((cell) => {
       cell.removeEventListener("click", handleCellClick);
-      // cell.classList.remove("available");
     });
   }
 
@@ -43,8 +41,8 @@ function init() {
     const board = cell.parentNode;
     // if no finalwin or final drwa we should active the board according to the game rules
     nextMoveOnBoard = parseInt(cell.getAttribute("data-index"));
+
     cell.textContent = currentPlayer;
-    cell.classList.remove("available");
     cell.classList.add(currentPlayer);
     if (checkLocalBoardWinner(board)) {
       handleLocalWinOrDrwa(
@@ -67,10 +65,10 @@ function init() {
       );
     });
   }
-  // drwa can happen when remain 2 cells available and now winner yet
+
   function checkLocalDraw(board) {
     const cells = Array.from(board.querySelectorAll(".cell"));
-    return cells.every((cell) => !cell.classList.contains("available"));
+    return cells.every((cell) => cell.classList.length === 2);
   }
   function handleLocalWinOrDrwa(board, messageToUpdate, classToUpdate) {
     board.classList.add(classToUpdate);
@@ -81,36 +79,24 @@ function init() {
   function checkForNextGrid(idx) {
     //  is target and unfinshed => then it's will be availabe and the rest disables
     // is target and finished => then all unfinsihed boards going to be available
+    const isFinishedBoard = (board) =>
+      board.classList.contains("drwa") ||
+      board.classList.contains("winner-X") ||
+      board.classList.contains("winner-O");
 
-    if (
-      !(
-        localBoards[idx].classList.contains("drwa") ||
-        localBoards[idx].classList.contains("winner-X") ||
-        localBoards[idx].classList.contains("winner-O")
-      )
-    ) {
+    console.log(isFinishedBoard(localBoards[idx]));
+
+    if (!isFinishedBoard(localBoards[idx])) {
       for (let i = 0; i < 9; i++) {
         if (i != idx) {
-          removeClickEventListener(localBoards[i])
-          // localBoards[i].classList.remove("available");
-          // localBoards[i]
-          //   .querySelectorAll(".cell")
-          //   .forEach((cell) =>
-          //     cell.removeEventListener("click", handleCellClick)
-          //   );
+          removeClickEventListener(localBoards[i]);
         } else {
           addClickEventListener(localBoards[i]);
         }
       }
     } else {
       localBoards.forEach((board) => {
-        if (
-          !(
-            board.classList.contains("winner-X") ||
-            board.classList.contains("winner-O") ||
-            board.classList.contains("drwa")
-          )
-        ) {
+        if (!isFinishedBoard(board)) {
           addClickEventListener(board);
         }
       });

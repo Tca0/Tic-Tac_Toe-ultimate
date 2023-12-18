@@ -139,7 +139,7 @@ article {
     cursor: not-allowed;
 }
 
-.local.available .cell.available:hover {
+.local.available .cell:hover {
     background-color: #f0f0f0;
     cursor: pointer;
 }
