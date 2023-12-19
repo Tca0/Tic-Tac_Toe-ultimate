@@ -15,27 +15,6 @@ function init() {
   ];
   let nextMoveOnBoard = null;
 
-  function getChildrenNodes(board) {
-    return Object.values(board.children);
-  }
-
-  function addClickEventListener(board) {
-    board.classList.add("available");
-    const cells = getChildrenNodes(board);
-    cells.forEach((cell) => {
-      if (cell.classList.length === 1)
-        cell.addEventListener("click", handleCellClick, { once: true });
-    });
-  }
-
-  function removeClickEventListener(board) {
-    board.classList.remove("available");
-    const cells = getChildrenNodes(board);
-    cells.forEach((cell) => {
-      cell.removeEventListener("click", handleCellClick);
-    });
-  }
-
   function handleCellClick(event) {
     if (gameOver) return;
     const cell = event.target;
@@ -43,11 +22,9 @@ function init() {
     nextMoveOnBoard = parseInt(cell.getAttribute("data-index"));
     cell.textContent = currentPlayer;
     cell.classList.add(currentPlayer);
-
     // ! Check for local win or drwa
     // Prepear for the next move
     // ? Check for total win or drwa
-
     const localWin = checkWin(board);
     const localDraw = checkDraw(board);
     if (localWin) {
@@ -88,13 +65,7 @@ function init() {
   function checkDraw(board) {
     const cells = getChildrenNodes(board);
     if (board.classList.contains("global")) {
-      console.log(`checking on global board`);
-      console.log(cells);
-      return !cells.some((cell) => {
-        console.log(cell);
-        console.log(cell.classList.contains("available"));
-        return cell.classList.contains("available");
-      });
+      return !cells.some((cell) => cell.classList.contains("available"));
     } else {
       return cells.every((cell) => cell.classList.length === 2);
     }
@@ -104,6 +75,7 @@ function init() {
     board.classList.add(classToUpdate);
     message = messageToUpdate;
     removeClickEventListener(board);
+    console.log(messageToUpdate)
   }
 
   function checkForNextGrid(idx) {
@@ -126,6 +98,27 @@ function init() {
         }
       });
     }
+  }
+
+  function getChildrenNodes(board) {
+    return Object.values(board.children);
+  }
+
+  function addClickEventListener(board) {
+    board.classList.add("available");
+    const cells = getChildrenNodes(board);
+    cells.forEach((cell) => {
+      if (cell.classList.length === 1)
+        cell.addEventListener("click", handleCellClick, { once: true });
+    });
+  }
+
+  function removeClickEventListener(board) {
+    board.classList.remove("available");
+    const cells = getChildrenNodes(board);
+    cells.forEach((cell) => {
+      cell.removeEventListener("click", handleCellClick);
+    });
   }
 
   localBoards.forEach((board) => {

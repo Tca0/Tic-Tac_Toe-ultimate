@@ -100,33 +100,33 @@ article {
 .local:first-child,
 .local:nth-child(2),
 .local:nth-child(3),
-.local_grid_cell:first-child,
-.local_grid_cell:nth-child(2),
-.local_grid_cell:nth-child(3)  {
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3)  {
     border-top: none;
 }
 .local:first-child,
 .local:nth-child(4),
 .local:nth-child(7),
-.local_grid_cell:first-child,
-.local_grid_cell:nth-child(4),
-.local_grid_cell:nth-child(7) {
+.cell:first-child,
+.cell:nth-child(4),
+.cell:nth-child(7) {
     border-left: none;
 }
 .local:nth-child(3),
 .local:nth-child(6),
 .local:nth-child(9),
-.local_grid_cell:nth-child(3),
-.local_grid_cell:nth-child(6),
-.local_grid_cell:nth-child(9) {
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9) {
     border-right: none;
 }
 .local:nth-child(7),
 .local:nth-child(8),
 .local:nth-child(9),
-.local_grid_cell:nth-child(7),
-.local_grid_cell:nth-child(8),
-.local_grid_cell:nth-child(9) {
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9) {
     border-bottom: none;
 }
 /* making global grid with inder grids end */
