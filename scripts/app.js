@@ -56,7 +56,7 @@ function init() {
         `Player ${currentPlayer} wins!`,
         `winner-${currentPlayer}`
       );
-    } else if (localDraw(board)) {
+    } else if (localDraw) {
       handleLocalWinOrDraw(board, `drwa`, `drwa`);
     }
     checkForNextGrid(nextMoveOnBoard);
@@ -89,8 +89,20 @@ function init() {
   }
 
   function checkDraw(board) {
-    const cells = Array.from(board.querySelectorAll(".cell"));
-    return cells.every((cell) => cell.classList.length === 2);
+    // const cells = Array.from(board.querySelectorAll(".cell"));
+    const cells = Object.values(board.children);
+    if (board.classList.contains("global")) {
+      console.log(`checking on global board`)
+      console.log(cells)
+      return !cells.some((cell) => {
+        console.log(cell)
+        console.log(cell.classList.contains('available'))
+        return cell.classList.contains('available')
+      });
+    } else {
+      return cells.every((cell) => cell.classList.length === 2);
+    }
+    // return cells.every((cell) => cell.classList.length === 2);
   }
   function handleLocalWinOrDraw(board, messageToUpdate, classToUpdate) {
     board.classList.add(classToUpdate);
