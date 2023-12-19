@@ -36,7 +36,7 @@ function init() {
     } else if (localDraw) {
       handleLocalWinOrDraw(board, `drwa`, `drwa`);
     }
-    // checkForNextGrid(nextMoveOnBoard);
+    checkForNextGrid(nextMoveOnBoard);
 
     if (localWin || localDraw) {
       const globalWin = checkWin(globalBoard);
@@ -51,7 +51,7 @@ function init() {
     }
 
     currentPlayer = currentPlayer === "X" ? "O" : "X";
-    checkForNextGrid(nextMoveOnBoard);
+    // checkForNextGrid(nextMoveOnBoard);
   }
 
   function checkWin(board) {
