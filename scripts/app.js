@@ -54,7 +54,7 @@ function init() {
       handleLocalWinOrDraw(
         board,
         `Player ${currentPlayer} wins!`,
-        `winner-${currentPlayer}`
+        currentPlayer
       );
     } else if (localDraw) {
       handleLocalWinOrDraw(board, `drwa`, `drwa`);
@@ -113,8 +113,8 @@ function init() {
   function checkForNextGrid(idx) {
     const isFinishedBoard = (board) =>
       board.classList.contains("drwa") ||
-      board.classList.contains("winner-X") ||
-      board.classList.contains("winner-O");
+      board.classList.contains("X") ||
+      board.classList.contains("O");
     if (!isFinishedBoard(localBoards[idx])) {
       for (let i = 0; i < 9; i++) {
         if (i != idx) {
