@@ -139,9 +139,12 @@ article {
 .cell.O {
     cursor: not-allowed;
 }
-/* .local.available {
+.local.available.X-turn {
     background-color:  rgba(255, 0, 0, 0.2);
-} */
+}
+.local.available.O-turn {
+    background-color:  rgba(0, 255, 0, 0.2);
+}
 .local.available .cell:not(.X):not(.O):hover:hover {
     background-color: #211d1d31;
     cursor: pointer;

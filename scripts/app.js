@@ -36,7 +36,7 @@ function init() {
     } else if (localDraw) {
       handleLocalWinOrDraw(board, `drwa`, `drwa`);
     }
-    checkForNextGrid(nextMoveOnBoard);
+    // checkForNextGrid(nextMoveOnBoard);
 
     if (localWin || localDraw) {
       const globalWin = checkWin(globalBoard);
@@ -51,6 +51,7 @@ function init() {
     }
 
     currentPlayer = currentPlayer === "X" ? "O" : "X";
+    checkForNextGrid(nextMoveOnBoard);
   }
 
   function checkWin(board) {
@@ -87,8 +88,10 @@ function init() {
       for (let i = 0; i < 9; i++) {
         if (i != idx) {
           removeClickEventListener(localBoards[i]);
+          // localBoards[i].classList.remove(`${currentPlayer}-turn`)
         } else {
           addClickEventListener(localBoards[i]);
+          // localBoards[i].classList.add(`${currentPlayer}-turn`)
         }
       }
     } else {
@@ -106,6 +109,7 @@ function init() {
 
   function addClickEventListener(board) {
     board.classList.add("available");
+    board.classList.add(`${currentPlayer}-turn`)
     const cells = getChildrenNodes(board);
     cells.forEach((cell) => {
       if (cell.classList.length === 1)
@@ -115,6 +119,7 @@ function init() {
 
   function removeClickEventListener(board) {
     board.classList.remove("available");
+    board.classList.remove(`${currentPlayer}-turn`)
     const cells = getChildrenNodes(board);
     cells.forEach((cell) => {
       cell.removeEventListener("click", handleCellClick);
