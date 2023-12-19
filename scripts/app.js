@@ -1,5 +1,6 @@
 function init() {
   const localBoards = document.querySelectorAll(".local");
+  const globalBoard = document.querySelector(".global");
   let currentPlayer = "X";
   let gameOver = false;
   const winningConditions = [
@@ -15,7 +16,6 @@ function init() {
   let nextMoveOnBoard = null;
 
   function getChildren(board) {
-    // return board.querySelectorAll(".cell");
     return Object.values(board.children);
   }
 
@@ -48,21 +48,38 @@ function init() {
     // * for win or drwa same conditions will apply for global win/draw
     //  & change the name of function to check for win or drwa then apply same function for global win/draw
     // ^ get children function return only direct children node so we can use it now to either locals or cells
-    
-    if (checkLocalBoardWinner(board)) {
+    const localWin = checkWin(board)
+    const localDraw = checkDraw(board)
+    if (localWin) {
       handleLocalWinOrDraw(
         board,
         `Player ${currentPlayer} wins!`,
         `winner-${currentPlayer}`
       );
-    } else if (checkLocalDraw(board)) {
+    } else if (localDraw(board)) {
       handleLocalWinOrDraw(board, `drwa`, `drwa`);
     }
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
     checkForNextGrid(nextMoveOnBoard);
+    // check for total win or toal draw
+    if (localWin || localDraw) {
+      const globalWin = checkWin(globalBoard);
+      const globalDrwa = checkDraw(globalBoard);
+      gameOver = (globalWin || globalDrwa) ? true : false;
+      if (globalWin) {
+        console.log(`game over, the player ${currentPlayer} wins`);
+      }
+      if (globalDrwa) {
+        // console.log(Object.values(globalBoard.children))
+        // console.log(globalBoard.classList)
+        console.log("Game over, no winner");
+      }
+    }
+
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    
   }
 
-  function checkLocalBoardWinner(localBoard) {
+  function checkWin(localBoard) {
     const cells = localBoard.querySelectorAll(".cell");
     return winningConditions.some((condition) => {
       return condition.every((index) =>
@@ -71,7 +88,7 @@ function init() {
     });
   }
 
-  function checkLocalDraw(board) {
+  function checkDraw(board) {
     const cells = Array.from(board.querySelectorAll(".cell"));
     return cells.every((cell) => cell.classList.length === 2);
   }
