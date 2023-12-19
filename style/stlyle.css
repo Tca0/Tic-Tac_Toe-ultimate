@@ -131,8 +131,8 @@ article {
 }
 /* making global grid with inder grids end */
 
-.winner-X,
-.winner-O,
+.local.X,
+.local.O,
 .drwa, .drwa > *,
 .cell.X,
 .cell.O {

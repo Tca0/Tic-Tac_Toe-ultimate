@@ -79,7 +79,7 @@ function init() {
     
   }
 
-  function checkWin(localBoard) {
+  function checkWin(board) {
     // const cells = localBoard.querySelectorAll(".cell");
     const cells = Object.values(board.children);
     return winningConditions.some((condition) => {
