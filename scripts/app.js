@@ -80,7 +80,8 @@ function init() {
   }
 
   function checkWin(localBoard) {
-    const cells = localBoard.querySelectorAll(".cell");
+    // const cells = localBoard.querySelectorAll(".cell");
+    const cells = Object.values(board.children);
     return winningConditions.some((condition) => {
       return condition.every((index) =>
         cells[index].classList.contains(currentPlayer)
