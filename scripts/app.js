@@ -39,6 +39,8 @@ function init() {
     checkForNextGrid(nextMoveOnBoard);
 
     if (localWin || localDraw) {
+      // ! handel game over terms
+      //  ? write a function to carry a message and finish the game
       const globalWin = checkWin(globalBoard);
       const globalDrwa = checkDraw(globalBoard);
       gameOver = globalWin || globalDrwa ? true : false;
@@ -49,11 +51,12 @@ function init() {
         console.log("Game over, no winner");
       }
     }
-
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    // checkForNextGrid(nextMoveOnBoard);
+    swapTurn()
   }
-
+function swapTurn() {
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  document.querySelectorAll(".available").forEach((gird) => gird.classList.add(`${currentPlayer}-turn`))
+}
   function checkWin(board) {
     const cells = getChildrenNodes(board);
     return winningConditions.some((condition) => {
@@ -84,23 +87,16 @@ function init() {
       board.classList.contains("drwa") ||
       board.classList.contains("X") ||
       board.classList.contains("O");
-    if (!isFinishedBoard(localBoards[idx])) {
-      for (let i = 0; i < 9; i++) {
-        if (i != idx) {
-          removeClickEventListener(localBoards[i]);
-          // localBoards[i].classList.remove(`${currentPlayer}-turn`)
-        } else {
-          addClickEventListener(localBoards[i]);
-          // localBoards[i].classList.add(`${currentPlayer}-turn`)
-        }
+      localBoards.forEach(board => removeClickEventListener(board))
+      if(!isFinishedBoard(localBoards[idx])) {
+        addClickEventListener(localBoards[idx])
+      } else {
+        localBoards.forEach((board) => {
+          if (!isFinishedBoard(board)) {
+            addClickEventListener(board);
+          }
+        });
       }
-    } else {
-      localBoards.forEach((board) => {
-        if (!isFinishedBoard(board)) {
-          addClickEventListener(board);
-        }
-      });
-    }
   }
 
   function getChildrenNodes(board) {
@@ -109,7 +105,6 @@ function init() {
 
   function addClickEventListener(board) {
     board.classList.add("available");
-    board.classList.add(`${currentPlayer}-turn`)
     const cells = getChildrenNodes(board);
     cells.forEach((cell) => {
       if (cell.classList.length === 1)
@@ -128,6 +123,7 @@ function init() {
 
   localBoards.forEach((board) => {
     if (!nextMoveOnBoard) {
+      board.classList.add(`${currentPlayer}-turn`)
       addClickEventListener(board);
     }
   });
