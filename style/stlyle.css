@@ -145,7 +145,7 @@ article {
 .O-turn {
     background-color:  rgba(0, 255, 0, 0.2);
 }
-.local.available .cell:not(.X):not(.O):hover:hover {
+.local.available .cell:not(.X):not(.O):hover {
     background-color: #211d1d31;
     cursor: pointer;
 }
