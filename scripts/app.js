@@ -45,10 +45,12 @@ function init() {
       const globalDrwa = checkDraw(globalBoard);
       gameOver = globalWin || globalDrwa ? true : false;
       if (globalWin) {
-        console.log(`game over, the player ${currentPlayer} wins`);
+        handleGameOver(true, `${currentPlayer} won`)
+        // console.log(`game over, the player ${currentPlayer} wins`);
       }
       if (globalDrwa) {
-        console.log("Game over, no winner");
+        handleGameOver(false, "No winner, it's a tie")
+        // console.log("Game over, no winner");
       }
     }
     swapTurn()
@@ -80,6 +82,11 @@ function swapTurn() {
     message = messageToUpdate;
     removeClickEventListener(board);
     console.log(messageToUpdate)
+  }
+
+  function handleGameOver(winner,message) {
+    localBoards.forEach(board => removeClickEventListener(board))
+    console.log(message)
   }
 
   function checkForNextGrid(idx) {
