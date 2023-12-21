@@ -82,13 +82,16 @@ article {
     height: 600px;
     padding: 30px;
     background-color: #f0f0f0;
+    z-index: 1;
 }
 
 .local {
     width: 180px;
     height: 180px;
-    padding: 10px;
+    /* padding: 10px; */
     border: 4px double black;
+    margin: 0 auto;
+    z-index: 2;
 }
 .cell {
     flex-grow: 1;
@@ -97,6 +100,7 @@ article {
     height: 40px;
     border: 1px solid black;
     box-sizing: border-box;
+    z-index: 3;
 }
 .local:first-child,
 .local:nth-child(2),
