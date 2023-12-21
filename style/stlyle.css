@@ -86,20 +86,24 @@ article {
 }
 
 .local {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     /* padding: 10px; */
-    border: 4px double black;
+    border: 2px double black;
     margin: 0 auto;
     z-index: 2;
 }
 .cell {
     flex-grow: 1;
-    padding: 10px;
-    width: 40px;
-    height: 40px;
-    border: 1px solid black;
+    margin: 0 auto;
+    padding: 0 auto;
+    width: 61px;
+    height: 61px;
+    border: 0.5px solid black;
     box-sizing: border-box;
+    font-size: 45px;
+    font-weight: bolder;
+    text-align: center;
     z-index: 3;
 }
 .local:first-child,
@@ -160,34 +164,57 @@ article {
 .local:not(.available) .cell {
     cursor: not-allowed;
 }
-.X,
-.O {
-    text-align: center;
-    font-size: larger;
-    font-family: 'Brush Script MT', cursive;
-}
-.X {
-    color: red;
 
+/* adding rotating effects when mark is placed */
+.cell.X,
+.cell.O {
+    transform-origin: left center;
+    transform: rotateY(-180deg) translateX(-60px);
+    transition: transform 1s ease-out;
+    color: white;
 }
-.O {
-    color: green;
+
+.cell.X {
+    background-color: #d14538;
+}
+
+.cell.O {
+    background-color: #2bc03c;
+}
+.X-turn,
+.O-turn {
+    background-color: #7f5a8f;
+}
+
+.X-turn>.cell:not(.X):not(.O):hover::before {
+    content: 'X';
+}
+
+.O-turn>.cell:not(.X):not(.O):hover::before {
+    content: 'O';
+}
+.O-turn>.cell:not(.X):not(.O):hover,
+.X-turn>.cell:not(.X):not(.O):hover {
+    color: black;
+    cursor: pointer;
+    /* font-size: 45px; */
+    background-color: rgba(58, 52, 52, 0.18);
 }
 /*  when a square oir local gride is completed will not be availabe on the board so will hide all inner gride  */
-.local.O>*, .local.X {
+.local.O>*, .local.X>* {
     display: none;
 }
 /* choosing a mark style for the squar winner */
 .local.O::after {
     content: 'O';
     color: #2bc03c;
-    transform: matrix(24, 1, 2, 15, 0, 0);
+    transform: matrix(15, 1, 2, 12, 0, 0);
     font-family: 'Brush Script MT', cursive;
 }
 .local.X::after {
     content: 'X';
     color: #d14538;
-    transform: matrix(18, 5, 5, 12, 0, 0);
+    transform: matrix(12, 5, 5, 10, 0, 0);
     font-family: 'Brush Script MT', cursive;
 }
 
