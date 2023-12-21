@@ -169,22 +169,24 @@ article {
 .O {
     color: green;
 }
-
+/*  when a square oir local gride is completed will not be availabe on the board so will hide all inner gride  */
+.local.O>*, .local.X {
+    display: none;
+}
 /* choosing a mark style for the squar winner */
-[data-winner="O"]::after {
+.local.O::after {
     content: 'O';
-    color: green;
-    transform: matrix(14, 1, 2, 10, 0, 0);
+    color: #2bc03c;
+    transform: matrix(24, 1, 2, 15, 0, 0);
+    font-family: 'Brush Script MT', cursive;
+}
+.local.X::after {
+    content: 'X';
+    color: #d14538;
+    transform: matrix(18, 5, 5, 12, 0, 0);
     font-family: 'Brush Script MT', cursive;
 }
 
-[data-winner="X"]::after,
-[data-winner="X"]::before  {
-    content: 'X';
-    color: red;
-    transform: matrix(14, 1, 2, 10, 0, 0);
-    font-family: 'Brush Script MT', cursive;
-}
 [data-winner="none"]::after {
     content: 'DRAW';
     color: rgb(61, 59, 59);
@@ -193,10 +195,7 @@ article {
     text-decoration-style: double;
     text-decoration-line: underline;
 }
-/*  when a square oir local gride is completed will not be availabe on the board so will hide all inner gride  */
-[data-available="false"]>* {
-    display: none;
-}
+
 
 
 /* Results popup div */
