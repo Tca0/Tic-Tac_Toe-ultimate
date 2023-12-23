@@ -1,98 +1,92 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     background-color: rgb(188, 199, 211);
-}
-.container {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-article {
-    margin-top: 50%;
-}
-.header {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-    justify-content: space-around;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    width: 600px;
-    align-items: center;
-    height: 100px;
-}
-#timer {
-    font-size: 30px;
-    font-weight: bold;
-}
-#headerText {
-    font-size: 30px;
-    font-family: fantasy;
-}
-#headerText > * {
-    margin: 10px;
-}
-.reset {
-    border: none;
-    background: none;
-    outline: none;
-    cursor: pointer;
-}
-#mute {
-    margin-left: 50px;
-    background: transparent;
-    border: none;
-    font-size: 25px;
-    cursor: pointer;
-}
-#mute:checked {
-    background-color: red;
-    border-color: white;
-    background-color: green;
-}
-#mute:hover {
-    font-size: 30px;
-    cursor: grab;
-}
-#muteButton {
-    background: transparent;
-    border: none;
-    font-size: 25px;
-    cursor: pointer;
-}
-#muteButton:hover {
-    font-size: 30px;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0;
+    height: max-content;
 }
 
-/* making global & inner grids */
-.global, .local {
+header {
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 13%;
+    background-color: rgba(24, 85, 85, 0.705);
+    color: white;
+}
+header h1 {
+    text-align: center;
+    font-size: 20px;
+}
+nav {
+    background-color: #26512e50;
+    text-align: center;
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+}
+
+nav li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.main {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 70%;
+}
+
+.message {
+    margin-right: 30px;
+    width: 15%;
+}
+
+.global,
+.local {
     cursor: pointer;
     display: grid;
-    grid-template-columns: repeat(3,auto);
+    grid-template-columns: repeat(3, auto);
     flex-grow: 1;
     justify-content: center;
     align-content: center;
     align-items: center;
     justify-items: center;
 }
-.global{
-    width: 600px;
-    height: 600px;
-    padding: 30px;
-    background-color: #f0f0f0;
+
+.global {
     z-index: 1;
 }
 
 .local {
     width: 200px;
     height: 200px;
-    /* padding: 10px; */
-    border: 2px double black;
+    padding: 20px;
+    border: 2px solid black;
     margin: 0 auto;
     z-index: 2;
 }
+
 .cell {
     flex-grow: 1;
     margin: 0 auto;
@@ -106,14 +100,16 @@ article {
     text-align: center;
     z-index: 3;
 }
+
 .local:first-child,
 .local:nth-child(2),
 .local:nth-child(3),
 .cell:first-child,
 .cell:nth-child(2),
-.cell:nth-child(3)  {
+.cell:nth-child(3) {
     border-top: none;
 }
+
 .local:first-child,
 .local:nth-child(4),
 .local:nth-child(7),
@@ -122,6 +118,7 @@ article {
 .cell:nth-child(7) {
     border-left: none;
 }
+
 .local:nth-child(3),
 .local:nth-child(6),
 .local:nth-child(9),
@@ -130,6 +127,7 @@ article {
 .cell:nth-child(9) {
     border-right: none;
 }
+
 .local:nth-child(7),
 .local:nth-child(8),
 .local:nth-child(9),
@@ -138,21 +136,26 @@ article {
 .cell:nth-child(9) {
     border-bottom: none;
 }
+
 /* making global grid with inder grids end */
 
 .local.X,
 .local.O,
-.drwa, .drwa > *,
+.drwa,
+.drwa>*,
 .cell.X,
 .cell.O {
     cursor: not-allowed;
 }
+
 .X-turn {
-    background-color:  rgba(255, 0, 0, 0.2);
+    background-color: rgba(255, 0, 0, 0.2);
 }
+
 .O-turn {
-    background-color:  rgba(0, 255, 0, 0.2);
+    background-color: rgba(0, 255, 0, 0.2);
 }
+
 .local.available .cell:not(.X):not(.O):hover {
     background-color: #211d1d31;
     cursor: pointer;
@@ -161,6 +164,7 @@ article {
 .cell {
     cursor: pointer;
 }
+
 .local:not(.available) .cell {
     cursor: not-allowed;
 }
@@ -181,6 +185,7 @@ article {
 .cell.O {
     background-color: #2bc03c;
 }
+
 .X-turn,
 .O-turn {
     background-color: #7f5a8f;
@@ -193,6 +198,7 @@ article {
 .O-turn>.cell:not(.X):not(.O):hover::before {
     content: 'O';
 }
+
 .O-turn>.cell:not(.X):not(.O):hover,
 .X-turn>.cell:not(.X):not(.O):hover {
     color: black;
@@ -200,10 +206,13 @@ article {
     /* font-size: 45px; */
     background-color: rgba(58, 52, 52, 0.18);
 }
+
 /*  when a square oir local gride is completed will not be availabe on the board so will hide all inner gride  */
-.local.O>*, .local.X>* {
+.local.O >*,
+.local.X > * {
     display: none;
 }
+
 /* choosing a mark style for the squar winner */
 .local.O::after {
     content: 'O';
@@ -211,277 +220,18 @@ article {
     transform: matrix(15, 1, 2, 12, 0, 0);
     font-family: 'Brush Script MT', cursive;
 }
+
 .local.X::after {
     content: 'X';
     color: #d14538;
     transform: matrix(12, 5, 5, 10, 0, 0);
     font-family: 'Brush Script MT', cursive;
 }
-
-[data-winner="none"]::after {
-    content: 'DRAW';
-    color: rgb(61, 59, 59);
-    transform: matrix(3, 1, -3, 3, 0, 0);
-    font-family: 'Brush Script MT', cursive;
-    text-decoration-style: double;
-    text-decoration-line: underline;
-}
-
-
-
-/* Results popup div */
-.hiddenResults {
+footer {
     position: absolute;
-    display: none;
-    z-index: 1;
-    opacity: 1;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    cursor: pointer;
-    top: 0;
     bottom: 0;
     left: 0;
-    right: 0;
-}
-.popup {
-    position: absolute;
-    display: block;
-    z-index: 1;
-    background-color: rgb(16, 17, 13);
-    opacity: 0.9;
+    height: 3%;
+    background-color: gray;
     width: 100%;
-    height: 100%;
-    overflow: auto;
-    cursor: pointer;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    align-items: center;
-}
-.results {
-    position: relative;
-    top: 45%;
-    color: white;
-    text-align: center;
-    font-size: 30px;
-    font-family: fantasy;
-}
-#dialogInfo {
-    padding: 0px;
-    width: 400px;
-    height: 120px;
-    text-align: center;
-}
-h4 {
-    background-color: red;
-    width: 100%;
-    margin: 0px;
-    font-weight: 900;
-}
-.infoMessages {
-    font-family: fantasy;
-
-}
-/* styling dices */
-
-.cube {
-    width: 50px;
-    height: 50px;
-    position: relative;
-    perspective: 500px;
-    perspective-origin: 50% 100%;
-
-}
-.dice {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform-style: preserve-3d;
-    transform: translateZ(-25px);
-    transition: transform 200ms;
-}
-#dice-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    line-height: 42px;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: white;
-    text-align: center;
-    border-radius: 10%;
-}
-.front-1 {
-    transform: translateZ(25px);
-}
-.back-2 {
-    transform: rotateX(-180deg) translateZ(25px);
-    
-}
-.top-3 {
-    transform: rotateX(90deg) translateZ(25px);
-    
-}
-.bottom-4 {
-    transform: rotateX(-90deg) translateZ(25px);
-}
-.right-5 {
-    transform: rotateY(-90deg) translateZ(25px);
-}
-.left-6 {
-    transform: rotateY(90deg) translateZ(25px);
-}
-span {
-    font-size: 90px;
-}
-.X_inputs, .O_inputs {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-}
-.user_Information {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: center;
-}
-.player_Inputs {
-    width: 600px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    justify-content: space-around;
-    max-height: fit-content;
-}
-label {
-    color: white;
-    margin-bottom: 10px;
-}
-.hidden_Inputs {
-    position: absolute;
-    display: none;
-    z-index: 1;
-    opacity: 1;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    cursor: pointer;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-.popup_start {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-grow: 1;
-    z-index: 1;
-    background-color: rgb(16, 17, 13);
-    opacity: 0.9;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    cursor: pointer;
-}
-.popup_start > * {
-    margin-top: 20px;
-}
-.startGameBtn {
-    font-size: 20px;
-    font-weight: 900;
-    border-style:ridge;
-    appearance: button;
-    box-sizing: border-box;
-    text-align: center;
-    padding: 13px 16px;
-    cursor: pointer;
-    font-family: fantasy;
-    background-color: #1899D6;
-    color: #FFFFFF;
-    border-width: 0 4px 10px 0;
-    border-radius: 16px;
-    border-color: #084f70;
-    touch-action: manipulation;
-    outline: none;
-    cursor: pointer;
-}
-.startGameBtn:hover {
-    background-clip: padding-box;
-    cursor: progress;
-    filter: brightness(2.1);
-    font-size: 25px;
-}
-label {
-    font-family: fantasy;
-    font-size: 23px;
-}
-.userInput{
-    width: 150px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: text;
-    height: 35px;
-    border-width: 6px 3px;
-    border-color: rgb(32, 12, 88);
-    background-color: darkorchid;
-    
-}
-.game_Rules {
-    color: white;
-    text-align: center;
-    font-family: fantasy;
-}
-p {
-    font-size: 20px;
-}
-h3,h2 {
-    margin-bottom: 0px;
-    margin-bottom: 0px;
-}
-h3 {
-    margin-top: 0px;
-    margin-top: 0px;
-}
-/* starter screen */
-.redLight {
-    position: relative;
-    top: 45%;
-    background-color: red;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    content: '';
-    align-self: center;
-    transform: scale(2,2);
-}
-.yellowLight {
-    position: relative;
-    top: 45%;
-    background-color: yellow;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    content: '';
-    transform: scale(2,2);
-}
-.greenLight {
-    position: relative;
-    top: 45%;
-    background-color: green;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    content: '';
-    transform: scale(2,2);
-}
-.hideText {
-    display: none;
 }

@@ -1,6 +1,7 @@
 function init() {
   const localBoards = document.querySelectorAll(".local");
   const globalBoard = document.querySelector(".global");
+  let messageToDisplay = document.querySelector(".message")
   let currentPlayer = "X";
   let gameOver = false;
   const winningConditions = [
@@ -16,6 +17,7 @@ function init() {
   let nextMoveOnBoard = null;
 
   function handleCellClick(event) {
+    messageToDisplay.textContent = " "
     if (gameOver) return;
     const cell = event.target;
     const board = cell.parentNode;
@@ -30,11 +32,11 @@ function init() {
     if (localWin) {
       handleLocalWinOrDraw(
         board,
-        `Player ${currentPlayer} wins!`,
+        `Player ${currentPlayer} wins the board ${parseInt(board.id)+1}!`,
         currentPlayer
       );
     } else if (localDraw) {
-      handleLocalWinOrDraw(board, `drwa`, `drwa`);
+      handleLocalWinOrDraw(board, `Tie on the board ${parseInt(board.id)+1}`, `drwa`);
     }
     checkForNextGrid(nextMoveOnBoard);
 
@@ -45,12 +47,10 @@ function init() {
       const globalDrwa = checkDraw(globalBoard);
       gameOver = globalWin || globalDrwa ? true : false;
       if (globalWin) {
-        handleGameOver(true, `${currentPlayer} won`)
-        // console.log(`game over, the player ${currentPlayer} wins`);
+        handleGameOver(`${currentPlayer} won`)
       }
       if (globalDrwa) {
-        handleGameOver(false, "No winner, it's a tie")
-        // console.log("Game over, no winner");
+        handleGameOver("No winner, it's a tie")
       }
     }
     swapTurn()
@@ -81,13 +81,13 @@ function swapTurn() {
     board.classList.add(classToUpdate);
     message = messageToUpdate;
     removeClickEventListener(board);
-    console.log(messageToUpdate)
+    messageToDisplay.textContent = messageToUpdate
   }
 
-  function handleGameOver(winner,message) {
+  function handleGameOver(message) {
     localBoards.forEach(board => removeClickEventListener(board))
-    console.log(message)
-  }
+    messageToDisplay.textContent = `Game over... ${message}`
+    }
 
   function checkForNextGrid(idx) {
     const isFinishedBoard = (board) =>

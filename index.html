@@ -10,272 +10,204 @@
     <title>Tic-Tac-Toe ultimate</title>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div id="timer">00:00</div>
-            <div id="headerText">
-                <div class="game_situation"></div>
-                <div class="player_turn"></div>
-            </div>
-            <button type="button" class="reset">
-                <i class="material-icons">refresh</i>
-            </button>
-            <div class="soundControlPanel">
-                <button id="muteButton"></button>
-            </div>
-        </div>
-        <div class="hidden_Inputs">
-            <div class="headerBtns">
-                <button class="startGameBtn">Start Playing</button>
-                <button id="mute">&#x1F508;</button>
-            </div>
-            <div class="player_Inputs">
-                <div class="X_inputs">
-                    <div class="user_Information">
-                        <label for="firstPlayerName">Enter your Name</label>
-                        <input type="text" class="userInput" id="firstPlayerName">
+        <header>
+            <h1>Online Board Games</h1>
+            <nav>
+                    <ul>
+                        <li>Restart Game</li>
+                        <li>Exit</li>
+                        <li>Game rules</li>
+                        <li>Skudo Game</li>
+                    </ul>
+            </nav>
+        </header>
+            <div class="main">
+                <div class="global">
+                    <div class="local" id="0">
+                        <div class="cell" data-index="0">
+                        </div>
+                        <div class="cell" data-index="1">
+                        </div>
+                        <div class="cell" data-index="2">
+                        </div>
+                        <div class="cell" data-index="3">
+                        </div>
+                        <div class="cell" data-index="4">
+                        </div>
+                        <div class="cell" data-index="5">
+                        </div>
+                        <div class="cell" data-index="6">
+                        </div>
+                        <div class="cell" data-index="7">
+                        </div>
+                        <div class="cell" data-index="8">
+                        </div>
                     </div>
-                    <div class="cube">
-                        <div class="dice dice_X">
-                            <div class="front-1" id="dice-face"><span>&#9856;</span></div>
-                            <div class="back-2" id="dice-face"><span>&#9857;</span></div>
-                            <div class="top-3" id="dice-face"><span>&#9858;</span></div>
-                            <div class="bottom-4" id="dice-face"><span>&#9859;</span></div>
-                            <div class="right-5" id="dice-face"><span>&#9860;</span></div>
-                            <div class="left-6" id="dice-face"><span>&#9861;</span></div>
+                    <div class="local" id="1" >
+                        <div class="cell" data-index="0">
+                        </div>
+                        <div class="cell"  data-index="1">
+                        </div>
+                        <div class="cell"  data-index="2">
+                        </div>
+                        <div class="cell"  data-index="3">
+                        </div>
+                        <div class="cell"  data-index="4">
+                        </div>
+                        <div class="cell"  data-index="5">
+                        </div>
+                        <div class="cell"  data-index="6">
+                        </div>
+                        <div class="cell"  data-index="7">
+                        </div>
+                        <div class="cell"  data-index="8">
+                        </div>
+                    </div>
+                    <div class="local" id="2">
+                        <div class="cell"  data-index="0">
+                        </div>
+                        <div class="cell"  data-index="1">
+                        </div>
+                        <div class="cell"  data-index="2">
+                        </div>
+                        <div class="cell"  data-index="3">
+                        </div>
+                        <div class="cell"  data-index="4">
+                        </div>
+                        <div class="cell"  data-index="5">
+                        </div>
+                        <div class="cell"  data-index="6">
+                        </div>
+                        <div class="cell"  data-index="7">
+                        </div>
+                        <div class="cell"  data-index="8">
+                        </div>
+                    </div>
+                    <div class="local" id="3">
+                        <div class="cell"  data-index="0">
+                        </div>
+                        <div class="cell"  data-index="1">
+                        </div>
+                        <div class="cell"  data-index="2">
+                        </div>
+                        <div class="cell"  data-index="3">
+                        </div>
+                        <div class="cell"  data-index="4">
+                        </div>
+                        <div class="cell"  data-index="5">
+                        </div>
+                        <div class="cell"  data-index="6">
+                        </div>
+                        <div class="cell"  data-index="7">
+                        </div>
+                        <div class="cell"  data-index="8">
+                        </div>
+                    </div>
+                    <div class="local" id="4" >
+                        <div class="cell"  data-index="0">
+                        </div>
+                        <div class="cell"  data-index="1">
+                        </div>
+                        <div class="cell"  data-index="2">
+                        </div>
+                        <div class="cell"  data-index="3">
+                        </div>
+                        <div class="cell"  data-index="4">
+                        </div>
+                        <div class="cell"  data-index="5">
+                        </div>
+                        <div class="cell"  data-index="6">
+                        </div>
+                        <div class="cell"  data-index="7">
+                        </div>
+                        <div class="cell"  data-index="8">
+                        </div>
+                    </div>
+                    <div class="local" id="5" >
+                        <div class="cell"  data-index="0">
+                        </div>
+                        <div class="cell"  data-index="1">
+                        </div>
+                        <div class="cell"  data-index="2">
+                        </div>
+                        <div class="cell"  data-index="3">
+                        </div>
+                        <div class="cell"  data-index="4">
+                        </div>
+                        <div class="cell"  data-index="5">
+                        </div>
+                        <div class="cell"  data-index="6">
+                        </div>
+                        <div class="cell"  data-index="7">
+                        </div>
+                        <div class="cell"  data-index="8">
+                        </div>
+                    </div>
+                    <div class="local" id="6" >
+                        <div class="cell"  data-index="0">
+                        </div>
+                        <div class="cell"  data-index="1">
+                        </div>
+                        <div class="cell"  data-index="2">
+                        </div>
+                        <div class="cell"  data-index="3">
+                        </div>
+                        <div class="cell"  data-index="4">
+                        </div>
+                        <div class="cell"  data-index="5">
+                        </div>
+                        <div class="cell"  data-index="6">
+                        </div>
+                        <div class="cell"  data-index="7">
+                        </div>
+                        <div class="cell"  data-index="8">
+                        </div>
+                    </div>
+                    <div class="local" id="7" >
+                        <div class="cell"  data-index="0">
+                        </div>
+                        <div class="cell"  data-index="1">
+                        </div>
+                        <div class="cell"  data-index="2">
+                        </div>
+                        <div class="cell"  data-index="3">
+                        </div>
+                        <div class="cell"  data-index="4">
+                        </div>
+                        <div class="cell"  data-index="5">
+                        </div>
+                        <div class="cell"  data-index="6">
+                        </div>
+                        <div class="cell"  data-index="7">
+                        </div>
+                        <div class="cell"  data-index="8">
+                        </div>
+                    </div>  
+                    <div class="local" id="8" >
+                        <div class="cell" data-index="0">
+                        </div>
+                        <div class="cell" data-index="1">
+                        </div>
+                        <div class="cell" data-index="2">
+                        </div>
+                        <div class="cell" data-index="3">
+                        </div>
+                        <div class="cell" data-index="4">
+                        </div>
+                        <div class="cell" data-index="5">
+                        </div>
+                        <div class="cell" data-index="6">
+                        </div>
+                        <div class="cell" data-index="7">
+                        </div>
+                        <div class="cell" data-index="8">
                         </div>
                     </div>
                 </div>
-                <div class="O_inputs">
-                    <div class="user_Information">
-                        <label for="secondPlayerName">Enter your Name</label>
-                        <input type="text" class="userInput" id="secondPlayerName">
-                    </div>
-                    <div class="cube">
-                        <div class="dice dice_O">
-                            <div class="front-1" id="dice-face"><span>&#9856;</span></div>
-                            <div class="back-2" id="dice-face"><span>&#9857;</span></div>
-                            <div class="top-3" id="dice-face"><span>&#9858;</span></div>
-                            <div class="bottom-4" id="dice-face"><span>&#9859;</span></div>
-                            <div class="right-5" id="dice-face"><span>&#9860;</span></div>
-                            <div class="left-6" id="dice-face"><span>&#9861;</span></div>
-                        </div>
-                    </div>
+                <div class="message">
+                    <p></p>
                 </div>
             </div>
-            <div class="game_Rules">
-                <div id="rulesExplaining">
-                    <h2>Tic-Tac-Toe Ultimate</h2>
-                    <h3>It's 9in1 Game.</h3>
-                    <p>The winner is first player wins 3 grids in row<br>
-                        every player play around due to some rules:<br>
-                        First player place their mark on any cell as a first move.<br>
-                        Second player then has to replace their mark on local grid<br>
-                        which a cross to the first player cell and follow swap turn and move on<br>in the same way
-                        <br>if a player press on a cell which lead to a won grid<br>the next player can play on<br>
-                        any-other free cell
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="global">
-            <div class="local" id="0">
-                <div class="cell" data-index="0">
-                </div>
-                <div class="cell" data-index="1">
-                </div>
-                <div class="cell" data-index="2">
-                </div>
-                <div class="cell" data-index="3">
-                </div>
-                <div class="cell" data-index="4">
-                </div>
-                <div class="cell" data-index="5">
-                </div>
-                <div class="cell" data-index="6">
-                </div>
-                <div class="cell" data-index="7">
-                </div>
-                <div class="cell" data-index="8">
-                </div>
-            </div>
-    
-            <div class="local" id="1" >
-                <div class="cell" data-index="0">
-                </div>
-                <div class="cell"  data-index="1">
-                </div>
-                <div class="cell"  data-index="2">
-                </div>
-                <div class="cell"  data-index="3">
-                </div>
-                <div class="cell"  data-index="4">
-                </div>
-                <div class="cell"  data-index="5">
-                </div>
-                <div class="cell"  data-index="6">
-                </div>
-                <div class="cell"  data-index="7">
-                </div>
-                <div class="cell"  data-index="8">
-                </div>
-            </div>
-    
-            <div class="local" id="2">
-                <div class="cell"  data-index="0">
-                </div>
-                <div class="cell"  data-index="1">
-                </div>
-                <div class="cell"  data-index="2">
-                </div>
-                <div class="cell"  data-index="3">
-                </div>
-                <div class="cell"  data-index="4">
-                </div>
-                <div class="cell"  data-index="5">
-                </div>
-                <div class="cell"  data-index="6">
-                </div>
-                <div class="cell"  data-index="7">
-                </div>
-                <div class="cell"  data-index="8">
-                </div>
-            </div>
-    
-            <div class="local" id="3">
-                <div class="cell"  data-index="0">
-                </div>
-                <div class="cell"  data-index="1">
-                </div>
-                <div class="cell"  data-index="2">
-                </div>
-                <div class="cell"  data-index="3">
-                </div>
-                <div class="cell"  data-index="4">
-                </div>
-                <div class="cell"  data-index="5">
-                </div>
-                <div class="cell"  data-index="6">
-                </div>
-                <div class="cell"  data-index="7">
-                </div>
-                <div class="cell"  data-index="8">
-                </div>
-            </div>
-    
-            <div class="local" id="4" >
-                <div class="cell"  data-index="0">
-                </div>
-                <div class="cell"  data-index="1">
-                </div>
-                <div class="cell"  data-index="2">
-                </div>
-                <div class="cell"  data-index="3">
-                </div>
-                <div class="cell"  data-index="4">
-                </div>
-                <div class="cell"  data-index="5">
-                </div>
-                <div class="cell"  data-index="6">
-                </div>
-                <div class="cell"  data-index="7">
-                </div>
-                <div class="cell"  data-index="8">
-                </div>
-            </div>
-    
-            <div class="local" id="5" >
-                <div class="cell"  data-index="0">
-                </div>
-                <div class="cell"  data-index="1">
-                </div>
-                <div class="cell"  data-index="2">
-                </div>
-                <div class="cell"  data-index="3">
-                </div>
-                <div class="cell"  data-index="4">
-                </div>
-                <div class="cell"  data-index="5">
-                </div>
-                <div class="cell"  data-index="6">
-                </div>
-                <div class="cell"  data-index="7">
-                </div>
-                <div class="cell"  data-index="8">
-                </div>
-            </div>
-    
-            <div class="local" id="6" >
-                <div class="cell"  data-index="0">
-                </div>
-                <div class="cell"  data-index="1">
-                </div>
-                <div class="cell"  data-index="2">
-                </div>
-                <div class="cell"  data-index="3">
-                </div>
-                <div class="cell"  data-index="4">
-                </div>
-                <div class="cell"  data-index="5">
-                </div>
-                <div class="cell"  data-index="6">
-                </div>
-                <div class="cell"  data-index="7">
-                </div>
-                <div class="cell"  data-index="8">
-                </div>
-            </div>
-    
-            <div class="local" id="7" >
-                <div class="cell"  data-index="0">
-                </div>
-                <div class="cell"  data-index="1">
-                </div>
-                <div class="cell"  data-index="2">
-                </div>
-                <div class="cell"  data-index="3">
-                </div>
-                <div class="cell"  data-index="4">
-                </div>
-                <div class="cell"  data-index="5">
-                </div>
-                <div class="cell"  data-index="6">
-                </div>
-                <div class="cell"  data-index="7">
-                </div>
-                <div class="cell"  data-index="8">
-                </div>
-            </div>
-            
-            <div class="local" id="8" >
-                <div class="cell" data-index="0">
-                </div>
-                <div class="cell" data-index="1">
-                </div>
-                <div class="cell" data-index="2">
-                </div>
-                <div class="cell" data-index="3">
-                </div>
-                <div class="cell" data-index="4">
-                </div>
-                <div class="cell" data-index="5">
-                </div>
-                <div class="cell" data-index="6">
-                </div>
-                <div class="cell" data-index="7">
-                </div>
-                <div class="cell" data-index="8">
-                </div>
-            </div>
-            
-        </div>
-    </div>
-    <dialog id="dialogInfo">
-        <h4>Error</h4>
-        <p class="infoMessages"></p>
-    </dialog>
-    <div class="hiddenResults">
-        <div class="results"> </div>
-    </div>
+        <footer>Check </footer>
 </body>
 </html>
