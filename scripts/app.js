@@ -22,8 +22,9 @@ function init() {
     const cell = event.target;
     const board = cell.parentNode;
     nextMoveOnBoard = parseInt(cell.getAttribute("data-index"));
-    cell.textContent = currentPlayer;
-    cell.classList.add(currentPlayer);
+    replaceMark(cell)
+    // cell.textContent = currentPlayer;
+    // cell.classList.add(currentPlayer);
     // ! Check for local win or drwa
     // Prepear for the next move
     // ? Check for total win or drwa
@@ -53,7 +54,13 @@ function init() {
         handleGameOver("No winner, it's a tie")
       }
     }
-    swapTurn()
+    setTimeout(() => swapTurn(), 500)
+    // swapTurn()
+  }
+  function replaceMark(cell) {
+    cell.classList.add(currentPlayer)
+    // cell.textContent = currentPlayer
+    setTimeout(() => cell.textContent = currentPlayer, 500)
   }
 function swapTurn() {
   currentPlayer = currentPlayer === "X" ? "O" : "X";
